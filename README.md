@@ -1,6 +1,6 @@
 # schrodingersbox/meter_cat README
 
-This engine makes monitoring the usgae history of your Rails environment easier.
+This engine makes monitoring the usage history of your Rails environment easier.
 
 ## Reference
 
@@ -13,6 +13,8 @@ This engine makes monitoring the usgae history of your Rails environment easier.
 
 ##TODO
 
+ * Model and migration - date, name, value, lock
+ * Increment logic
 
  * Added "Getting Started" and "How To" sections to this README
 
