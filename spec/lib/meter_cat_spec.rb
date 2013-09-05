@@ -42,6 +42,11 @@ describe MeterCat do
       MeterCat.cache.should be_an_instance_of( MeterCat::Cache )
     end
 
+    it 'installs an at_exit hook to flush the cache' do
+      MeterCat.class_variable_set( :@@cache, nil )
+      at_exit { MeterCat.cache.should be_empty }
+      MeterCat.add( @name )
+    end
   end
 
   describe '::config' do

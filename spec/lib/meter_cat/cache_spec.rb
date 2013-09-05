@@ -141,4 +141,26 @@ describe MeterCat::Cache do
 
   end
 
+  #############################################################################
+  # Cache#flush_all
+
+  describe '#flush_all' do
+
+    before( :each ) do
+      @cache.add( :foo, @value, @date )
+      @cache.add( :bar, @value, @date )
+    end
+
+    it 'flushes all the cached meters to db' do
+      @cache.values.each { |meter| meter.should_receive( :add ) }
+      @cache.flush_all
+    end
+
+    it 'leaves the hash empty' do
+      @cache.flush_all
+      @cache.should be_empty
+    end
+
+  end
+
 end

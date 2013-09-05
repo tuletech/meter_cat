@@ -33,10 +33,14 @@ module MeterCat
     # Flushes data to the DB and removes it from the hash
 
     def flush( name )
-      return unless meter = fetch( name, nil )
-
-      store( name, nil )
+      return unless meter = delete( name )
       meter.add
+    end
+
+    # Flushes all keys
+
+    def flush_all
+      keys.each { |key| flush( key ) }
     end
 
   end

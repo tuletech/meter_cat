@@ -13,11 +13,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Library level methods - flush, increment
-
- * Add MeterCat::Cache.flush_all
- * At exit logic - highlander call? document for app developer?
-
  * View logic
  * Name, description, frequency from i18n YML
 
