@@ -26,7 +26,7 @@ module MeterCat
     # Creates a new Meter and stores is in the hash
 
     def cache( name, value, created_on )
-      meter = Meter.new( :name => name, :value => value, :created_on => created_on )
+      meter = Meter.new( :name => name, :value => value, :created_on => created_on, :created_at => Time.now )
       store( name, meter )
     end
 

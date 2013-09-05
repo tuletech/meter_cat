@@ -3,6 +3,8 @@
 module MeterCat
   class Meter < ActiveRecord::Base
 
+    validates :name, :presence => true
+
     # The expiration time for an in-memory cached meter
 
     DEFAULT_EXPIRATION = 3600
@@ -17,7 +19,6 @@ module MeterCat
 
     DEFAULT_RETRY_DELAY = 1
 
-    validates :name, :presence => true
 
     # Create an object for this name+date in the db if one does not already exist.
     # Add the value from this object to the one in the DB.
@@ -48,12 +49,10 @@ module MeterCat
       return success
     end
 
+    # Determines if the meter is expired and should be flushed from memory to DB
 
     def expired?
-
-      # TODO implement
-
-      return false
+      return ( Time.now - created_at ) > MeterCat.config.expiration
     end
 
   end

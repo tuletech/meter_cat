@@ -13,12 +13,7 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Implement & test Meter.expired?
-
- * Library level methods - flush, increment, config
- * Configuration
-    * Min flush time
-    * Move Meter constants to config
+ * Library level methods - flush, increment
 
  * Add MeterCat::Cache.flush_all
  * At exit logic - highlander call? document for app developer?

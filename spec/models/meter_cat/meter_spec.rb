@@ -36,8 +36,7 @@ describe MeterCat::Meter do
   end
 
   #############################################################################
-  # #add
-  #############################################################################
+  # Meter#add
 
   describe '#add' do
 
@@ -86,8 +85,7 @@ describe MeterCat::Meter do
   end
 
   #############################################################################
-  # #add_with_retry
-  #############################################################################
+  # Meter#add_with_retry
 
   describe '#add_with_retry' do
 
@@ -133,6 +131,29 @@ describe MeterCat::Meter do
     it 'succeeds if a retry works' do
       @meter.should_receive( :add ).twice.and_return( false, true )
       @meter.add_with_retry.should be_true
+    end
+
+  end
+
+  #############################################################################
+  # Meter#expired?
+
+  describe '#expired?' do
+
+    before( :each ) do
+      @expiration = MeterCat.config.expiration
+      @now = Time.now
+      Time.should_receive( :now ).and_return( @now )
+    end
+
+    it 'returns false if age is less than expiration' do
+      @meter.created_at = @now + @expiration
+      @meter.expired?.should be_false
+    end
+
+    it 'returns true if age is older than expiration' do
+      @meter.created_at = @now - @expiration * 2
+      @meter.expired?.should be_true
     end
 
   end

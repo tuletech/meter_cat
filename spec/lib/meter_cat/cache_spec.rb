@@ -18,8 +18,7 @@ describe MeterCat::Cache do
   end
 
   #############################################################################
-  # #add
-  #############################################################################
+  # Cache#add
 
   describe '#add' do
 
@@ -94,12 +93,14 @@ describe MeterCat::Cache do
   end
 
   #############################################################################
-  # #cache
-  #############################################################################
+  # Cache#cache
 
   describe '#cache' do
 
     it 'stores a new meter in the cache' do
+      now = Time.now
+      Time.should_receive( :now ).and_return( now )
+
       @cache[ @name ].should be_nil
       @cache.cache( @name, @value, @date )
 
@@ -108,14 +109,13 @@ describe MeterCat::Cache do
       meter.name.should eql( @name )
       meter.value.should eql( @value )
       meter.created_on.should eql( @date )
-
+      meter.created_at.should eql( now )
     end
 
   end
 
   #############################################################################
-  # #flush
-  #############################################################################
+  # Cache#flush
 
   describe '#flush' do
 

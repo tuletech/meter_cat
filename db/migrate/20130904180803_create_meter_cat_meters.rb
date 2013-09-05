@@ -5,6 +5,7 @@ class CreateMeterCatMeters < ActiveRecord::Migration
       t.date :created_on
       t.integer :value, :default => 0
       t.integer :lock_version, :default => 0
+      t.datetime :created_at
       t.index [ :created_on, :name ], :unique => true
     end
   end
