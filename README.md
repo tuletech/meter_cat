@@ -13,8 +13,25 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Model and migration - date, name, value, lock
- * Increment logic
+ * Accumulator logic
+    * :name => Meter
+
+ * Flushing logic
+    * If !date,flush old accumulated value, remember new one
+    * How to determine non-date change flush?  Time based?  Heuristic?
+
+ * Library level methods - flush, increment, config
+ * Configuration
+    * Min flush time
+
+ * At exit logic - highlander call? document for app developer?
+
+ * View logic
+ * Name, description, frequency from i18n YML
+
+ * CSV export
+
+ * Email logic
 
  * Added "Getting Started" and "How To" sections to this README
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904200233) do
+ActiveRecord::Schema.define(version: 20130904221754) do
 
   create_table "meter_cat_meters", force: true do |t|
     t.string  "name",         limit: 64,             null: false
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20130904200233) do
     t.integer "lock_version",            default: 0
   end
 
-  add_index "meter_cat_meters", ["created_on"], name: "index_meter_cat_meters_on_created_on"
-  add_index "meter_cat_meters", ["name"], name: "index_meter_cat_meters_on_name"
+  add_index "meter_cat_meters", ["created_on", "name"], name: "index_meter_cat_meters_on_created_on_and_name", unique: true
 
 end

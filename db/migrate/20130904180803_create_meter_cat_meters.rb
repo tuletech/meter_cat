@@ -6,8 +6,7 @@ class CreateMeterCatMeters < ActiveRecord::Migration
       t.integer :value, :default => 0
       t.integer :lock_version, :default => 0
 
-      t.index :name, :unique => false
-      t.index :created_on, :unique => false
+      t.index [ :created_on, :name ], :unique => true
     end
   end
 end
