@@ -5,7 +5,7 @@ include MeterCat
 describe MeterCat::Meter do
 
   before( :each ) do
-    Kernel.stub!( :sleep )
+    Kernel.stub( :sleep )
 
     Meter.delete_all
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )

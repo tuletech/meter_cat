@@ -46,5 +46,13 @@ module MeterCat
       return success
     end
 
+
+    def expired?
+
+      # TODO implement
+
+      return false
+    end
+
   end
 end

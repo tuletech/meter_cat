@@ -13,6 +13,9 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
+ * Spec MeterCat::Cache
+ * Implement & test Meter.expired?
+
  * Accumulator logic
     * :name => Meter
 
@@ -29,6 +32,8 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
  * View logic
  * Name, description, frequency from i18n YML
+
+ * RSpec helpers for testing meter behavior
 
  * CSV export
 
