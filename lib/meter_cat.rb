@@ -4,8 +4,16 @@ require 'meter_cat/config'
 
 module MeterCat
 
+  def add( name, value = 1, created_on = Date.today )
+    cache.add( name, value, created_on )
+  end
+
+  def self.cache
+    return @@cache ||= MeterCat::Cache.new
+  end
+
   def self.config
-    return MeterCat::Config.instance
+    return @@config ||= MeterCat::Config.new
   end
 
   def self.configure

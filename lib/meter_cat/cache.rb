@@ -5,7 +5,7 @@ module MeterCat
     # Adds the given value to the hash
     # Flushes expired data to DB
 
-    def add( name, value = 1, created_on = Date.today )
+    def add( name, value, created_on )
       meter = fetch( name, nil )
 
       # If the name isn't cached, cache it and return

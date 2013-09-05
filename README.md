@@ -18,17 +18,23 @@ This engine makes monitoring the usage history of your Rails environment easier.
  * Add MeterCat::Cache.flush_all
  * At exit logic - highlander call? document for app developer?
 
-
  * View logic
  * Name, description, frequency from i18n YML
 
- * RSpec helpers for testing meter behavior
+ * Calculated stats
+ * Grouping stats
+
+ * RSpec matchers for testing meter behavior
 
  * CSV export
 
  * Email logic
 
+ * Rake tasks
+
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
+   * at_exit
+   * rspec matchers
 
  * Publish as gem

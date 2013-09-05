@@ -1,10 +1,6 @@
-require 'singleton'
-
 module MeterCat
 
   class Config
-    include Singleton
-
     attr_accessor :expiration, :retry_attempts, :retry_delay
 
     def initialize
