@@ -1,7 +1,19 @@
+# app/models/meter_cat/meter.rb
+#
+# A Meter is simply an integer value for a unique name+date pair
+
 module MeterCat
   class Meter < ActiveRecord::Base
 
-    MAX_ADD_ATTEMPTS = 5
+    # The number of retries in the event of an optimistic locking failure or creation collision
+
+    RETRY_ATTEMPTS = 5
+
+    # The delay between retries, in seconds.
+    # Not using exponential back-off to prevent blocking controllers.
+    # Better to lose a little data than create a bad user experience.
+
+    RETRY_DELAY = 1
 
     validates :name, :presence => true
 
@@ -21,16 +33,14 @@ module MeterCat
     # Returns the result of the final call to #add
 
     def add_with_retry
-      attempts = 0
       success = false
 
-      while( attempts < MAX_ADD_ATTEMPTS && !success )
-        attempts += 1
-
+      (1..RETRY_ATTEMPTS).each do
         begin
-          success = add
+          break if success = add
         rescue ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique
         end
+        Kernel.sleep( RETRY_DELAY )
       end
 
       return success

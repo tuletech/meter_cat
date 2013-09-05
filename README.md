@@ -23,6 +23,7 @@ This engine makes monitoring the usage history of your Rails environment easier.
  * Library level methods - flush, increment, config
  * Configuration
     * Min flush time
+    * Move Meter constants to config
 
  * At exit logic - highlander call? document for app developer?
 

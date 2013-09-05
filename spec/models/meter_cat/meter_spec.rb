@@ -5,12 +5,22 @@ include MeterCat
 describe MeterCat::Meter do
 
   before( :each ) do
+    Kernel.stub!( :sleep )
+
     Meter.delete_all
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
   end
 
-  it 'defines a constant number of retry attempts' do
-    Meter::MAX_ADD_ATTEMPTS.should be( 5 )
+  describe 'constants' do
+
+    it 'defines a number of retry attempts' do
+      Meter::RETRY_ATTEMPTS.should be( 5 )
+    end
+
+    it 'defines a delay between retries' do
+      Meter::RETRY_DELAY.should be( 1 )
+    end
+
   end
 
   it 'validates the presence of name' do
@@ -87,23 +97,28 @@ describe MeterCat::Meter do
     end
 
     it 'catches ActiveRecord::StaleObjectError exceptions' do
-      @meter.should_receive( :add ).exactly( Meter::MAX_ADD_ATTEMPTS ).times.and_raise( ActiveRecord::StaleObjectError.new( nil, nil ) )
+      @meter.should_receive( :add ).exactly( Meter::RETRY_ATTEMPTS ).times.and_raise( ActiveRecord::StaleObjectError.new( nil, nil ) )
       @meter.add_with_retry.should be_false
     end
 
     it 'catches ActiveRecord::RecordNotUnique exceptions' do
-      @meter.should_receive( :add ).exactly( Meter::MAX_ADD_ATTEMPTS ).times.and_raise( ActiveRecord::RecordNotUnique.new( nil, nil ) )
+      @meter.should_receive( :add ).exactly( Meter::RETRY_ATTEMPTS ).times.and_raise( ActiveRecord::RecordNotUnique.new( nil, nil ) )
       @meter.add_with_retry.should be_false
     end
 
     it 'retries up to Meter::MAX_ADD_ATTEMPTS times' do
-      @meter.should_receive( :add ).exactly( Meter::MAX_ADD_ATTEMPTS ).times.and_return( false )
+      @meter.should_receive( :add ).exactly( Meter::RETRY_ATTEMPTS ).times.and_return( false )
       @meter.add_with_retry.should be_false
+    end
 
+    it 'sleeps on each retry' do
+      Kernel.should_receive( :sleep ).exactly( Meter::RETRY_ATTEMPTS ).times
+      @meter.should_receive( :add ).exactly( Meter::RETRY_ATTEMPTS ).times.and_return( false )
+      @meter.add_with_retry.should be_false
     end
 
     it 'returns false if it fails' do
-      @meter.should_receive( :add ).exactly( Meter::MAX_ADD_ATTEMPTS ).times.and_return( false )
+      @meter.should_receive( :add ).exactly( Meter::RETRY_ATTEMPTS ).times.and_return( false )
       @meter.add_with_retry.should be_false
     end
 
