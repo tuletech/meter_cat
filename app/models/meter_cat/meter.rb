@@ -1,19 +1,21 @@
-# app/models/meter_cat/meter.rb
-#
 # A Meter is simply an integer value for a unique name+date pair
 
 module MeterCat
   class Meter < ActiveRecord::Base
 
+    # The expiration time for an in-memory cached meter
+
+    DEFAULT_EXPIRATION = 3600
+
     # The number of retries in the event of an optimistic locking failure or creation collision
 
-    RETRY_ATTEMPTS = 5
+    DEFAULT_RETRY_ATTEMPTS = 5
 
     # The delay between retries, in seconds.
     # Not using exponential back-off to prevent blocking controllers.
     # Better to lose a little data than create a bad user experience.
 
-    RETRY_DELAY = 1
+    DEFAULT_RETRY_DELAY = 1
 
     validates :name, :presence => true
 
@@ -35,12 +37,12 @@ module MeterCat
     def add_with_retry
       success = false
 
-      (1..RETRY_ATTEMPTS).each do
+      (1..MeterCat.config.retry_attempts).each do
         begin
           break if success = add
         rescue ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique
         end
-        Kernel.sleep( RETRY_DELAY )
+        Kernel.sleep( MeterCat.config.retry_delay )
       end
 
       return success

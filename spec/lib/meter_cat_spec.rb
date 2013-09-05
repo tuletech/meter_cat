@@ -10,4 +10,20 @@ describe MeterCat do
     MeterCat.should_not be_nil
   end
 
+  describe '::config' do
+
+    it 'returns the configuration' do
+      MeterCat.config.should be( MeterCat::Config.instance )
+    end
+
+  end
+
+  describe '::configure' do
+
+    it 'yields the configuration' do
+      MeterCat.configure { |config| config.should be( MeterCat::Config.instance ) }
+    end
+
+  end
+
 end
