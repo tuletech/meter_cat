@@ -10,7 +10,26 @@ describe 'meter_cat rake tasks' do
     load 'lib/tasks/meter_cat.rake'
   end
 
-  it 'has no rake tasks' do
+  describe 'rake meter_cat:random[name,min,max,start,stop]' do
+
+    before( :each ) do
+      @name = 'test'
+      @min = '1'
+      @max = '10'
+      @start = '2013-01-01'
+      @stop = '2013-01-05'
+    end
+
+    it 'calls Meter::random with the args' do
+      MeterCat::Meter.should_receive( :random ) do |args|
+        args[ :name ].should eql( @name )
+        args[ :min ].should eql( @min )
+        args[ :max ].should eql( @max )
+        args[ :start ].should eql( @start )
+        args[ :stop ].should eql( @stop )
+      end
+      @rake[ 'meter_cat:random' ].invoke( @name, @min , @max, @start, @stop )
+    end
 
   end
 

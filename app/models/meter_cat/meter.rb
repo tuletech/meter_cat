@@ -5,6 +5,9 @@ module MeterCat
 
     validates :name, :presence => true
 
+    ###########################################################################
+    # Constants
+
     # The expiration time for an in-memory cached meter
 
     DEFAULT_EXPIRATION = 3600
@@ -19,6 +22,8 @@ module MeterCat
 
     DEFAULT_RETRY_DELAY = 1
 
+    ###########################################################################
+    # Instance methods
 
     # Create an object for this name+date in the db if one does not already exist.
     # Add the value from this object to the one in the DB.
@@ -53,6 +58,28 @@ module MeterCat
 
     def expired?
       return ( Time.now - created_at ) > MeterCat.config.expiration
+    end
+
+    ###########################################################################
+    # Class methods
+
+    # Generates a random sequence for a meter given the following args:
+    # [ :name, :min, :max, :start, :stop ]
+
+    def self.random( args )
+      name = args[ :name ]
+      min = args[ :min ].to_i
+      max = args[ :max ].to_i
+      start = Date.parse( args[ :start ] )
+      stop = Date.parse( args[ :stop ] )
+
+      (start .. stop).each do |date|
+        value = min + rand( max - min )
+        begin
+          Meter.create( :name => name, :value => value, :created_on => date )
+        rescue
+        end
+      end
     end
 
   end

@@ -158,5 +158,45 @@ describe MeterCat::Meter do
 
   end
 
+  #############################################################################
+  # Meter::random
+
+  describe '::random' do
+
+    before( :each ) do
+      @args = {
+          :name => 'test',
+          :min => '1',
+          :max => '10',
+          :start => '2013-01-01',
+          :stop => '2013-01-05'
+      }
+
+      @name = @args[ :name ]
+      @min = @args[ :min ].to_i
+      @max = @args[ :max ].to_i
+      @start = Date.parse( @args[ :start ] )
+      @stop = Date.parse( @args[ :stop ] )
+    end
+
+    it 'creates meters within the given name and date range' do
+      Meter.random( @args )
+      Meter.count.should eql( @stop - @start + 1 )
+
+      (@start..@stop).each do |date|
+        meter = Meter.find_by_name_and_created_on( @name, date )
+        meter.should be_present
+        meter.value.should >= @min
+        meter.value.should <= @max
+      end
+    end
+
+    it 'fails silently if the meter already exists' do
+      Meter.random( @args )
+      Meter.random( @args )
+    end
+
+  end
+
 end
 

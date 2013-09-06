@@ -29,7 +29,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
-   * at_exit
    * rspec matchers
 
  * Publish as gem
