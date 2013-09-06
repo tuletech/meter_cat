@@ -27,4 +27,9 @@ describe 'meter_cat/meter/index.html.erb' do
     render
   end
 
+  it 'uses the meter_descriptions helper'  do
+    view.should_receive( :meter_descriptions ).with( @meters )
+    render
+  end
+
 end

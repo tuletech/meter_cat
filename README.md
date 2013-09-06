@@ -13,8 +13,9 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * View logic
- * Name, description, frequency from i18n YML
+ * Beef up fixture and load into dev environment
+
+ * Search logic
 
  * Calculated stats
  * Grouping stats
@@ -30,5 +31,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
    * rspec matchers
+   * Randomly generating stats for dev
 
  * Publish as gem

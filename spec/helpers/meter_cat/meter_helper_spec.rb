@@ -12,6 +12,22 @@ describe MeterCat::MeterHelper do
     @name = meters( :user_created_2 ).name.to_sym
   end
 
+  describe '#meter_description' do
+
+    it 'generates a meter description' do
+      helper.meter_description( @name ).should eql_file( 'spec/data/meter_description.html' )
+    end
+
+  end
+
+  describe '#meter_descriptions' do
+
+    it 'generates a list of meter descriptions' do
+      helper.meter_descriptions( @meters ).should eql_file( 'spec/data/meter_descriptions.html' )
+    end
+
+  end
+
   describe '#meter_header' do
 
     it 'generates a meter table header' do

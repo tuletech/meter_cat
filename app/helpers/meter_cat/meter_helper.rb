@@ -1,11 +1,31 @@
 module MeterCat
   module MeterHelper
 
+     # Constructs a single meter description
+
+    def meter_description( name )
+      content_tag( :p ) do
+        concat content_tag( :b, name )
+        concat ' - '
+        concat t( name, :scope => [ :meter_cat, :descriptions ] )
+      end
+    end
+
+    # Constructs a list of meter descriptions
+
+    def meter_descriptions( meters )
+      content_tag( :ul ) do
+        meters.keys.sort.each do |name|
+          concat content_tag( :li, meter_description( name ) )
+        end
+      end
+    end
+
     # Constructs an HTML table header
 
     def meter_header( range )
       content_tag( :tr ) do
-        concat content_tag( :th  )
+        concat content_tag( :th )
         range.each { |date| concat content_tag( :th, date ) }
       end
     end
