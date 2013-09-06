@@ -4,22 +4,12 @@ require 'meter_cat/config'
 
 module MeterCat
 
-  @@cache = nil
-
   def add( name, value = 1, created_on = Date.today )
-    cache.add( name, value, created_on )
-  end
-
-  def self.cache
-    unless @@cache
-      @@cache = MeterCat::Cache.new
-      at_exit { @@cache.flush_all }
-    end
-    return @@cache
+    MeterCat::Cache.instance.add( name, value, created_on )
   end
 
   def self.config
-    return @@config ||= MeterCat::Config.new
+    return MeterCat::Config.instance
   end
 
   def self.configure

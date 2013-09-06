@@ -16,37 +16,26 @@ describe MeterCat do
       @name = :test
       @value = 1
       @date = Date.parse( '2013-09-05' )
+      @cache = MeterCat::Cache.instance
     end
 
     it 'adds the data to the cache' do
-      MeterCat.cache.should_receive( :add ).with( @name, @value, @date )
+      @cache.should_receive( :add ).with( @name, @value, @date )
       MeterCat.add( @name, @value, @date )
     end
 
     it 'defaults date to today' do
       Date.should_receive( :today ).and_return( @date )
-      MeterCat.cache.should_receive( :add ).with( @name, @value, @date )
+      @cache.should_receive( :add ).with( @name, @value, @date )
       MeterCat.add( @name, @value )
     end
 
     it 'defaults value to 1' do
-      MeterCat.cache.should_receive( :add ).with( @name, @value, @date )
+      Date.should_receive( :today ).and_return( @date )
+      @cache.should_receive( :add ).with( @name, @value, @date )
       MeterCat.add( @name )
     end
 
-  end
-
-  describe '::cache' do
-
-    it 'returns the cache' do
-      MeterCat.cache.should be_an_instance_of( MeterCat::Cache )
-    end
-
-    it 'installs an at_exit hook to flush the cache' do
-      MeterCat.class_variable_set( :@@cache, nil )
-      at_exit { MeterCat.cache.should be_empty }
-      MeterCat.add( @name )
-    end
   end
 
   describe '::config' do

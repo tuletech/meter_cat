@@ -3,7 +3,8 @@ require 'spec_helper'
 describe MeterCat::Cache do
 
   before( :each ) do
-    @cache = MeterCat::Cache.new
+    @cache = MeterCat::Cache.instance
+    @cache.clear
 
     @name = :test
     @value = 727
@@ -15,6 +16,14 @@ describe MeterCat::Cache do
 
   it 'is a subclass of Hash' do
     @cache.should be_a_kind_of( Hash )
+  end
+
+  it 'is a singleton' do
+    @cache.should be( MeterCat::Cache.instance )
+  end
+
+  it 'installs an at_exit hook to flush the cache' do
+    at_exit { MeterCat::Cache.instance.should be_empty }
   end
 
   #############################################################################

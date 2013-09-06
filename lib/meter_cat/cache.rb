@@ -1,6 +1,12 @@
+require 'singleton'
 
 module MeterCat
   class Cache < Hash
+    include Singleton
+
+    def initialize
+      at_exit { MeterCat::Cache.instance.flush_all }
+    end
 
     # Adds the given value to the hash
     # Flushes expired data to DB

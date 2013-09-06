@@ -4,7 +4,11 @@ include MeterCat
 
 describe MeterCat::Config do
 
-  let( :config ) { MeterCat::Config.new }
+  let( :config ) { MeterCat::Config.instance }
+
+  it 'is a singleton' do
+    config.should be( MeterCat::Config.instance )
+  end
 
   describe 'attributes' do
 
