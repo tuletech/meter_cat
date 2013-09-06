@@ -12,22 +12,22 @@ describe 'meter_cat/meter/index.html.erb' do
     assign( :meters, @meters )
   end
 
-  it 'includes a table title' do
+  it 'renders a title' do
     render
-    rendered.should have_selector( :h1, :content => t( :table_title, :scope => :meter_cat ) )
+    rendered.should have_selector( :h1, :content => t( :title, :scope => :meter_cat ) )
   end
 
-  it 'uses the meter_table helper'  do
+  it 'renders the meter table'  do
     view.should_receive( :meter_table ).with( @meters, @range )
     render
   end
 
-  it 'includes a description title' do
+  it 'renders a description title' do
     render
-    rendered.should have_selector( :h2, :content => t( :description_title, :scope => :meter_cat ) )
+    rendered.should have_selector( :h2, :content => t( :descriptions, :scope => :meter_cat ) )
   end
 
-  it 'uses the meter_descriptions helper'  do
+  it 'renders the meter description'  do
     view.should_receive( :meter_descriptions ).with( @meters )
     render
   end

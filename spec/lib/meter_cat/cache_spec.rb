@@ -109,7 +109,7 @@ describe MeterCat::Cache do
 
     it 'stores a new meter in the cache' do
       now = Time.now
-      Time.should_receive( :now ).and_return( now )
+      Time.should_receive( :now ).at_least( :once ).and_return( now )
 
       @cache[ @name ].should be_nil
       @cache.cache( @name, @value, @date )

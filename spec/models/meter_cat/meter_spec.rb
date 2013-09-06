@@ -164,6 +164,18 @@ describe MeterCat::Meter do
   end
 
   #############################################################################
+  # Meter::names
+
+  describe '::names' do
+
+    it 'returns all distinct meter names from the db' do
+      expected = Meter.uniq.pluck( :name ).sort
+      Meter.names.should eql( expected )
+    end
+
+  end
+
+  #############################################################################
   # Meter::random
 
   describe '::random' do

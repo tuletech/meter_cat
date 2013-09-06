@@ -23,6 +23,5 @@ en:
   hello: "Hello world"
 
   meter_cat:
-    descriptions:
-      user_created: New users created
-      login_failed: Login failures
+    user_created: New users created
+    login_failed: Login failures

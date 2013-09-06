@@ -1,4 +1,8 @@
 en:
   meter_cat:
-    table_title: Meter Report
-    description_title: Meter Descriptions
+    date: Date
+    days: Days
+    descriptions: Descriptions
+    names: Names
+    search: Search
+    title: Meter Report

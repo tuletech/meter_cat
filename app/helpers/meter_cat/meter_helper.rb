@@ -7,7 +7,7 @@ module MeterCat
       content_tag( :p ) do
         concat content_tag( :b, name )
         concat ' - '
-        concat t( name, :scope => [ :meter_cat, :descriptions ] )
+        concat t( name, :scope => :meter_cat )
       end
     end
 

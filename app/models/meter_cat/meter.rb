@@ -63,6 +63,12 @@ module MeterCat
     ###########################################################################
     # Class methods
 
+    # Returns all unique meter names sorted
+
+    def self.names
+      Meter.uniq.pluck( :name ).sort
+    end
+
     # Generates a random sequence for a meter given the following args:
     # [ :name, :min, :max, :start, :stop ]
 

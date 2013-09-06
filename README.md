@@ -14,8 +14,11 @@ This engine makes monitoring the usage history of your Rails environment easier.
 ##TODO
 
  * Search logic - ensure bookmarkable
+    * Spec controller
+    * Move search form from html to helper
+    * Wire in name selection
 
- * CSV export
+ * CSV export - 2 buttons on form: Display or CSV
 
  * Calculated stats
  * Grouping stats - necessary with full search and bookmarking?
@@ -24,7 +27,15 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
  * Email logic
 
- * Rake tasks
+ * Rake tasks - just mailer?
+
+ * Optimize
+   * Stress test with large (> 100k) data set
+   * Memoize Meter.names
+
+ * Cosmetics
+    * Toggle table row backgrounds
+    * Simplify dates - mm/dd/yy, or even drop year when all the same?
 
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
