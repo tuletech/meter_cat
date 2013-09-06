@@ -13,16 +13,14 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Beef up fixture and load into dev environment
-
- * Search logic
-
- * Calculated stats
- * Grouping stats
-
- * RSpec matchers for testing meter behavior
+ * Search logic - ensure bookmarkable
 
  * CSV export
+
+ * Calculated stats
+ * Grouping stats - necessary with full search and bookmarking?
+
+ * RSpec matchers for testing meter behavior
 
  * Email logic
 
@@ -32,5 +30,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
    * Configuration
    * rspec matchers
    * Randomly generating stats for dev
+   * Setting up dev environment - cd spec/dummy && rake db:fixtures:load
 
  * Publish as gem

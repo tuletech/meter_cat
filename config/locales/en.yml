@@ -1,3 +1,4 @@
 en:
   meter_cat:
-    h1: Meter Report
+    table_title: Meter Report
+    description_title: Meter Descriptions

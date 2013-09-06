@@ -52,11 +52,5 @@ module MeterCat
       end
     end
 
-    # Returns an HTML title
-
-    def meter_title
-      content_tag( :h1, t( :h1, :scope => :meter_cat ) )
-    end
-
   end
 end

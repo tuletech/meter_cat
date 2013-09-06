@@ -1,5 +1,7 @@
 <div class="meter_cat">
-    <%= meter_title %>
+    <h1><%= t( :table_title, :scope => :meter_cat ) %></h1>
     <%= meter_table( @meters, @range ) %>
+
+    <h2><%= t( :description_title, :scope => :meter_cat ) %></h2>
     <%= meter_descriptions( @meters ) %>
 </div>

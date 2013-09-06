@@ -52,13 +52,4 @@ describe MeterCat::MeterHelper do
 
   end
 
-  describe '#meter_title' do
-
-    it 'generates a page title' do
-      expected = "<h1>#{t( :h1, :scope => :meter_cat )}</h1>"
-      helper.meter_title.should eql( expected )
-    end
-
-  end
-
 end
