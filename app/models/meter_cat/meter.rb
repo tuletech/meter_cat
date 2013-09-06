@@ -82,5 +82,19 @@ module MeterCat
       end
     end
 
+    # Returns a hash of names to dates to values
+
+    def self.to_h( range )
+      meters = {}
+
+      Meter.select( 'name,created_on,value' ).where( :created_on => range ).find_each do |meter|
+        name = meter.name.to_sym
+        meters[ name ] ||= {}
+        meters[ name ][ meter.created_on ] = meter.value
+      end
+
+      return meters
+    end
+
   end
 end

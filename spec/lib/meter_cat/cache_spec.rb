@@ -24,6 +24,7 @@ describe MeterCat::Cache do
 
   it 'installs an at_exit hook to flush the cache' do
     at_exit { MeterCat::Cache.instance.should be_empty }
+    MeterCat::Cache.instance.send( :initialize )
   end
 
   #############################################################################

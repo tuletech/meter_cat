@@ -4,11 +4,16 @@ include MeterCat
 
 describe MeterCat::Meter do
 
+  fixtures :meters
+
   before( :each ) do
     Kernel.stub( :sleep )
 
-    Meter.delete_all
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
+  end
+
+  it 'has a fixture' do
+    Meter.count.should_not eql( 0 )
   end
 
   describe 'constants' do
@@ -180,6 +185,7 @@ describe MeterCat::Meter do
     end
 
     it 'creates meters within the given name and date range' do
+      Meter.delete_all
       Meter.random( @args )
       Meter.count.should eql( @stop - @start + 1 )
 
@@ -194,6 +200,32 @@ describe MeterCat::Meter do
     it 'fails silently if the meter already exists' do
       Meter.random( @args )
       Meter.random( @args )
+    end
+
+  end
+
+  #############################################################################
+  # Meter::to_h
+
+  describe '::to_h' do
+
+    before( :each ) do
+      @start = meters( :user_created_2 ).created_on
+      @stop = meters( :user_created_3 ).created_on
+      @range = @start .. @stop
+      @to_h = Meter.to_h( @range )
+    end
+
+    it 'finds all meters in the given range' do
+      Meter.where( :created_on => @range ) do |expected|
+        @to_h[ expected.name ][ expected.created_on ].should be_present
+      end
+    end
+
+    it 'returns a hash of name to date to value' do
+      Meter.where( :created_on => @range ) do |expected|
+        @to_h[ expected.name ][ expected.created_on ].should eql( expected.value )
+      end
     end
 
   end
