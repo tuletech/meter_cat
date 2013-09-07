@@ -7,7 +7,7 @@ describe MeterCat::MeterHelper do
     @user_created_1 = FactoryGirl.create( :user_created_1 )
     @user_created_2 = FactoryGirl.create( :user_created_2 )
     @user_created_3 = FactoryGirl.create( :user_created_3 )
-    @login_failed_1 = FactoryGirl.create( :login_failed_1 )
+    @login_failed_3 = FactoryGirl.create( :login_failed_3 )
 
     @start = @user_created_1.created_on
     @stop = @user_created_3.created_on

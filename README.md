@@ -14,13 +14,8 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Search logic
-    * Wire in name selection
-
  * CSV export - 2 buttons on form: Display or CSV
-
  * Calculated stats
- * Grouping stats - necessary with full search and bookmarking?
 
  * RSpec matchers for testing meter behavior
 

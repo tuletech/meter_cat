@@ -15,7 +15,7 @@ module MeterCat
       @days ||= DEFAULT_DAYS
 
       @range = (@date - @days) .. @date
-      @meters = Meter.to_h( @range )
+      @meters = Meter.to_h( @range, @names )
     end
 
   end

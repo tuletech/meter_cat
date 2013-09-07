@@ -219,24 +219,35 @@ describe MeterCat::Meter do
       MeterCat::Meter.delete_all
       @user_created_1 = FactoryGirl.create( :user_created_1 )
       @user_created_2 = FactoryGirl.create( :user_created_2 )
+      @user_created_3 = FactoryGirl.create( :user_created_3 )
+      @login_failed_3 = FactoryGirl.create( :login_failed_3 )
 
       @start = @user_created_1.created_on
-      @stop = @user_created_2.created_on
+      @stop = @user_created_3.created_on
       @range = @start .. @stop
 
-      @to_h = Meter.to_h( @range )
+      @names = [ @user_created_1.name ]
+
+      @conditions = { :created_on => @range, :name => @names }
+
+      @to_h = Meter.to_h( @range, @names )
     end
 
     it 'finds all meters in the given range' do
-      Meter.where( :created_on => @range ) do |expected|
+      Meter.where( @conditions ) do |expected|
         @to_h[ expected.name ][ expected.created_on ].should be_present
       end
     end
 
     it 'returns a hash of name to date to value' do
-      Meter.where( :created_on => @range ) do |expected|
+      Meter.where( @conditions  ) do |expected|
         @to_h[ expected.name ][ expected.created_on ].should eql( expected.value )
       end
+    end
+
+    it 'filters by name' do
+      @to_h.should have_key( @user_created_1.name.to_sym )
+      @to_h.should_not have_key( @login_failed_3.name.to_sym )
     end
 
   end

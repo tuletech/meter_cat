@@ -49,11 +49,12 @@ describe MeterCat::MeterController do
 
       before( :each ) do
         Meter.delete_all
-        @user_created_1 = FactoryGirl.create( :user_created_1 )
+        @user_created_3 = FactoryGirl.create( :user_created_3 )
+        @login_failed_3 = FactoryGirl.create( :login_failed_3 )
 
-        @date = @user_created_1.created_on
+        @date = @user_created_3.created_on
         @days = 30
-        @names = [ @user_created_1.name ]
+        @names = [ @user_created_3.name ]
 
         params = {
             :date => {
@@ -78,7 +79,7 @@ describe MeterCat::MeterController do
         range = (@date - @days) .. @date
 
         expect( assigns( :range ) ).to eql( range )
-        expect( assigns( :meters ) ).to eql( Meter.to_h( range ) )
+        expect( assigns( :meters ) ).to eql( Meter.to_h( range, @names ) )
       end
 
     end
