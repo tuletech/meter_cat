@@ -32,17 +32,20 @@ module MeterCat
     def meter_header( range )
       content_tag( :tr ) do
         concat content_tag( :th )
-        range.each { |date| concat content_tag( :th, date ) }
+        range.each { |date| concat content_tag( :th, date.strftime( '%-m/%-d/%y' ) ) }
       end
     end
 
     # Constructs an HTML table row
 
     def meter_row( meters, range, name )
+      style = cycle( '', 'background-color: #cccccc;' )
+
       content_tag( :tr ) do
-        concat content_tag( :th, name, :align => 'left' )
+        concat content_tag( :th, name, :align => 'left', :style => style )
         range.each do |date|
-          concat content_tag( :td, meters[ name ][ date ] || 0, :align => 'right' )
+          value = meters[ name ][ date ] || 0
+          concat content_tag( :td, value, :align => 'right', :style => style  )
         end
       end
     end

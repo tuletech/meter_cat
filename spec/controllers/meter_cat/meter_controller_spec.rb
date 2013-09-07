@@ -16,6 +16,12 @@ describe MeterCat::MeterController do
 
   describe '#index' do
 
+    before( :each ) do
+      Meter.delete_all
+      @user_created_3 = FactoryGirl.create( :user_created_3 )
+      @login_failed_3 = FactoryGirl.create( :login_failed_3 )
+    end
+
     it 'gets successfully' do
       get :index
       response.should be_success
@@ -58,10 +64,6 @@ describe MeterCat::MeterController do
     context 'with params' do
 
       before( :each ) do
-        Meter.delete_all
-        @user_created_3 = FactoryGirl.create( :user_created_3 )
-        @login_failed_3 = FactoryGirl.create( :login_failed_3 )
-
         @date = @user_created_3.created_on
         @days = 30
         @names = [ @user_created_3.name ]

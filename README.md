@@ -19,16 +19,11 @@ This engine makes monitoring the usage history of your Rails environment easier.
  * RSpec matchers for testing meter behavior
 
  * Email logic
-
  * Rake tasks - just mailer?
 
  * Optimize
    * Stress test with large (> 100k) data set
    * Memoize Meter.names
-
- * Cosmetics
-    * Toggle table row backgrounds
-    * Simplify dates - mm/dd/yy, or even drop year when all the same?
 
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
