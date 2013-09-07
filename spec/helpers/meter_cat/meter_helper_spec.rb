@@ -28,6 +28,15 @@ describe MeterCat::MeterHelper do
 
   end
 
+  describe '#meter_form' do
+
+    it 'renders the _form partial with locals' do
+      helper.should_receive( :render )
+      helper.meter_form( @start, 5, nil )
+    end
+
+  end
+
   describe '#meter_header' do
 
     it 'generates a meter table header' do

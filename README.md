@@ -13,8 +13,9 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Search logic - ensure bookmarkable
-    * Move search form from html to helper
+ * spec problem - "rspec spec" running, "rspec helpers' not
+
+ * Search logic
     * Wire in name selection
 
  * CSV export - 2 buttons on form: Display or CSV

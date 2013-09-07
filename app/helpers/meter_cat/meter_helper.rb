@@ -21,6 +21,8 @@ module MeterCat
       end
     end
 
+    # Renders the _form partial with locals
+
     def meter_form( date, days, names )
       render :partial => 'form', :locals => { :date => date, :days => days, :names => names }
     end
