@@ -6,6 +6,7 @@ module MeterCat
     include Singleton
 
     attr_accessor :calculator, :expiration, :retry_attempts, :retry_delay
+    attr_accessor :from, :mail_days, :mail_names, :subject, :to
 
     def initialize
       @calculator = MeterCat::Calculator.new

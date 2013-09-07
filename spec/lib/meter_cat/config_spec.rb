@@ -15,9 +15,25 @@ describe MeterCat::Config do
 
   describe 'attributes' do
 
+    it 'has an #calculator accessor' do
+      config.calculator.should_not be_nil
+    end
+
+    it 'has a #mail_days accessor' do
+      config.mail_days.should_not be_nil
+      config.mail_days = config.mail_days
+      config.mail_days.should eql( config.mail_days )
+    end
+
     it 'has an #expiration accessor' do
       config.expiration = Meter::DEFAULT_EXPIRATION
       config.expiration.should eql( Meter::DEFAULT_EXPIRATION )
+    end
+
+    it 'has a #from accessor' do
+      config.from.should_not be_nil
+      config.from = config.from
+      config.from.should eql( config.from )
     end
 
     it 'has a #retry_attempts accessor' do
@@ -28,6 +44,18 @@ describe MeterCat::Config do
     it 'has a #retry_delay accessor' do
       config.retry_delay = Meter::DEFAULT_RETRY_DELAY
       config.retry_delay.should eql( Meter::DEFAULT_RETRY_DELAY )
+    end
+
+    it 'has an #subject accessor' do
+      config.subject.should_not be_nil
+      config.subject = config.subject
+      config.subject.should eql( config.subject )
+    end
+
+    it 'has a #to accessor' do
+      config.to.should_not be_nil
+      config.to = config.to
+      config.to.should eql( config.to )
     end
 
   end

@@ -14,12 +14,10 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Calculated stats
-
- * RSpec matchers for testing meter behavior
-
  * Email logic
  * Rake tasks - just mailer?
+
+ * RSpec matchers for testing meter behavior
 
  * Optimize
    * Stress test with large (> 100k) data set

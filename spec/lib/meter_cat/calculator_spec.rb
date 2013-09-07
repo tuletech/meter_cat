@@ -130,5 +130,4 @@ describe MeterCat::Calculator do
 
   end
 
-
 end

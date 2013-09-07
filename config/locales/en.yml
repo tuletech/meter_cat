@@ -6,6 +6,7 @@ en:
     descriptions: Descriptions
     format: Format
     html: HTML
+    html_only: Please see the HTML attachment on this message.
     names: Names
     search: Search
     title: Meter Report

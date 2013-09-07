@@ -105,6 +105,8 @@ module MeterCat
         meters[ name ][ meter.created_on ] = meter.value
       end
 
+      MeterCat.config.calculator.calculate( meters, range, names )
+
       return meters
     end
 
