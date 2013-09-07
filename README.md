@@ -25,6 +25,9 @@ This engine makes monitoring the usage history of your Rails environment easier.
    * Stress test with large (> 100k) data set
    * Memoize Meter.names
 
+ * Cosmetics
+   * Filter descriptions to match data in table
+
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
    * rspec matchers

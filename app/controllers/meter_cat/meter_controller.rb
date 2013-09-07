@@ -17,6 +17,7 @@ module MeterCat
       @all_names = MeterCat.names
       @range = (@date - @days) .. @date
       @meters = Meter.to_h( @range, @names )
+
       MeterCat.config.calculator.calculate( @meters, @range, @names )
 
       respond_to do |format|

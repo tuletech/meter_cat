@@ -10,25 +10,9 @@ describe MeterCat::Meter do
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
   end
 
-  def setup_meters
-    MeterCat::Meter.delete_all
-    @user_created_1 = FactoryGirl.create( :user_created_1 )
-    @user_created_2 = FactoryGirl.create( :user_created_2 )
-    @user_created_3 = FactoryGirl.create( :user_created_3 )
-    @login_failed_3 = FactoryGirl.create( :login_failed_3 )
-
-    @start = @user_created_1.created_on
-    @stop = @user_created_3.created_on
-    @range = @start .. @stop
-
-    @names = [ @user_created_1.name ]
-
-    @conditions = { :created_on => @range, :name => @names }
-  end
-
   it 'has valid test data' do
     setup_meters
-    Meter.where( @conditions ).count
+    Meter.count.should > 0
   end
 
   describe 'constants' do

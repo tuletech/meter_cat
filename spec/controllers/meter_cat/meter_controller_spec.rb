@@ -17,6 +17,7 @@ describe MeterCat::MeterController do
   describe '#index' do
 
     before( :each ) do
+      MeterCat.config.calculator.clear
       Meter.delete_all
       @user_created_3 = FactoryGirl.create( :user_created_3 )
       @login_failed_3 = FactoryGirl.create( :login_failed_3 )
