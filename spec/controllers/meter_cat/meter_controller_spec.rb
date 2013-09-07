@@ -27,6 +27,12 @@ describe MeterCat::MeterController do
       response.should be_success
     end
 
+    it 'assigns all_names' do
+      get :index
+
+      expect( assigns( :all_names ) ).to be_present
+    end
+
     it 'converts meters to CSV' do
       Meter.should_receive( :to_csv )
       get :index, :format => 'csv'

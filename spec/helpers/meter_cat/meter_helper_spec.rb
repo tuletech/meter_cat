@@ -35,7 +35,7 @@ describe MeterCat::MeterHelper do
 
     it 'renders the _form partial with locals' do
       helper.should_receive( :render )
-      helper.meter_form( @start, 5, nil )
+      helper.meter_form( @start, 5, nil, Meter.names )
     end
 
   end

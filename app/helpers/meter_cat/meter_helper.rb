@@ -23,8 +23,8 @@ module MeterCat
 
     # Renders the _form partial with locals
 
-    def meter_form( date, days, names )
-      render :partial => 'form', :locals => { :date => date, :days => days, :names => names }
+    def meter_form( date, days, names, all_names )
+      render :partial => 'form', :locals => { :date => date, :days => days, :names => names, :all_names => all_names }
     end
 
     # Constructs an HTML table header

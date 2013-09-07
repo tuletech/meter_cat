@@ -1,4 +1,5 @@
 require 'meter_cat/engine'
+require 'meter_cat/calculator'
 require 'meter_cat/cache'
 require 'meter_cat/config'
 
@@ -14,6 +15,10 @@ module MeterCat
 
   def self.configure
     yield config
+  end
+
+  def self.names
+    ( Meter.names + MeterCat::config.calculator.keys.map { |key| key.to_s} ).sort
   end
 
 end

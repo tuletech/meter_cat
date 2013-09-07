@@ -11,7 +11,7 @@
 
   <p>
     <%= label_tag( :names, t( :names, :scope => :meter_cat ) ) %>
-    <%= select_tag( :names, options_for_select( MeterCat::Meter.names, names ), :multiple => true ) %>
+    <%= select_tag( :names, options_for_select( all_names, names ), :multiple => true, :size => all_names.size ) %>
   </p>
 
   <p>

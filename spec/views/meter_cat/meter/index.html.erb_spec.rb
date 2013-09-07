@@ -7,9 +7,11 @@ describe 'meter_cat/meter/index.html.erb' do
   before( :each ) do
     @range = MeterCat::Meter.minimum( :created_on ) .. MeterCat::Meter.maximum( :created_on )
     @meters = Meter.to_h( @range )
+    @all_names = Meter.names
 
     assign( :range, @range )
     assign( :meters, @meters )
+    assign( :all_names, @all_names )
   end
 
   it 'renders a title' do

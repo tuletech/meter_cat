@@ -5,25 +5,25 @@ module MeterCat
   class Config
     include Singleton
 
-    attr_accessor :calculations, :expiration, :retry_attempts, :retry_delay
+    attr_accessor :calculator, :expiration, :retry_attempts, :retry_delay
 
     def initialize
-      @calculations = {}
+      @calculator = MeterCat::Calculator.new
       @expiration = Meter::DEFAULT_EXPIRATION
       @retry_attempts = Meter::DEFAULT_RETRY_ATTEMPTS
       @retry_delay = Meter::DEFAULT_RETRY_DELAY
     end
 
     def ratio( name, numerator, denominator )
-      @calculations[ name ] = { :type => :ratio, :numerator => numerator, :denominator => denominator }
+      @calculator.ratio( name, numerator, denominator )
     end
 
     def percentage( name, numerator, denominator )
-      @calculations[ name ] = { :type => :percentage, :numerator => numerator, :denominator => denominator }
+      @calculator.percentage( name, numerator, denominator )
     end
 
     def sum( name, values )
-      @calculations[ name ] = { :type => :sum, :values => values }
+      @calculator.sum( name, values )
     end
 
   end
