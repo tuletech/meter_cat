@@ -1,8 +1,11 @@
 en:
   meter_cat:
+    csv: CSV
     date: Date
     days: Days
     descriptions: Descriptions
+    format: Format
+    html: HTML
     names: Names
     search: Search
     title: Meter Report

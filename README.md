@@ -14,7 +14,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * CSV export - 2 buttons on form: Display or CSV
  * Calculated stats
 
  * RSpec matchers for testing meter behavior

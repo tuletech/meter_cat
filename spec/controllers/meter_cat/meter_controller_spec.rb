@@ -21,6 +21,16 @@ describe MeterCat::MeterController do
       response.should be_success
     end
 
+    it 'converts meters to CSV' do
+      Meter.should_receive( :to_csv )
+      get :index, :format => 'csv'
+    end
+
+    it 'returns CSV' do
+      get :index, :format => 'csv'
+      response.body.should eql_file( 'spec/data/index.csv' )
+    end
+
     context 'without params' do
 
       before( :each ) do

@@ -16,6 +16,11 @@ module MeterCat
 
       @range = (@date - @days) .. @date
       @meters = Meter.to_h( @range, @names )
+
+      respond_to do |format|
+        format.html
+        format.csv { render :text => Meter.to_csv( @range, @names ), :content_type => 'text/csv' }
+      end
     end
 
   end

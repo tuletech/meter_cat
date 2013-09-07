@@ -8,6 +8,9 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
 
+# Ignore OS X files
+.DS_Store
+
 # Ignore RubyMine files
 /.idea
 

@@ -14,5 +14,13 @@
     <%= select_tag( :names, options_for_select( MeterCat::Meter.names, names ), :multiple => true ) %>
   </p>
 
-    <%= submit_tag( t( :search, :scope => :meter_cat ) ) %>
+  <p>
+    <%= label_tag( :format, t( :format, :scope => :meter_cat ) ) %>
+    <%= radio_button_tag( :format, 'html', true ) %>
+    <%= t( :html, :scope => :meter_cat ) %>
+    <%= radio_button_tag( :format, 'csv')  %>
+    <%= t( :csv, :scope => :meter_cat ) %>
+  </p>
+
+  <%= submit_tag( t( :search, :scope => :meter_cat ) ) %>
 <% end %>

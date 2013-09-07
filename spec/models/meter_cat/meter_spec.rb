@@ -10,6 +10,27 @@ describe MeterCat::Meter do
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
   end
 
+  def setup_meters
+    MeterCat::Meter.delete_all
+    @user_created_1 = FactoryGirl.create( :user_created_1 )
+    @user_created_2 = FactoryGirl.create( :user_created_2 )
+    @user_created_3 = FactoryGirl.create( :user_created_3 )
+    @login_failed_3 = FactoryGirl.create( :login_failed_3 )
+
+    @start = @user_created_1.created_on
+    @stop = @user_created_3.created_on
+    @range = @start .. @stop
+
+    @names = [ @user_created_1.name ]
+
+    @conditions = { :created_on => @range, :name => @names }
+  end
+
+  it 'has valid test data' do
+    setup_meters
+    Meter.where( @conditions ).count
+  end
+
   describe 'constants' do
 
     it 'defines a default expiration time' do
@@ -216,20 +237,7 @@ describe MeterCat::Meter do
   describe '::to_h' do
 
     before( :each ) do
-      MeterCat::Meter.delete_all
-      @user_created_1 = FactoryGirl.create( :user_created_1 )
-      @user_created_2 = FactoryGirl.create( :user_created_2 )
-      @user_created_3 = FactoryGirl.create( :user_created_3 )
-      @login_failed_3 = FactoryGirl.create( :login_failed_3 )
-
-      @start = @user_created_1.created_on
-      @stop = @user_created_3.created_on
-      @range = @start .. @stop
-
-      @names = [ @user_created_1.name ]
-
-      @conditions = { :created_on => @range, :name => @names }
-
+      setup_meters
       @to_h = Meter.to_h( @range, @names )
     end
 
@@ -248,6 +256,53 @@ describe MeterCat::Meter do
     it 'filters by name' do
       @to_h.should have_key( @user_created_1.name.to_sym )
       @to_h.should_not have_key( @login_failed_3.name.to_sym )
+    end
+
+  end
+
+  #############################################################################
+  # Meter::to_csv
+
+  describe '::to_csv' do
+
+    before( :each ) do
+      setup_meters
+      @to_csv = Meter.to_csv( @range, @names )
+      @csv = CSV.parse( @to_csv )
+    end
+
+    it 'generates a CSV file' do
+      @to_csv.should eql_file( 'spec/data/meters.csv' )
+    end
+
+    it 'includes a header row' do
+      @csv[ 0 ].should eql( Meter::CSV_COLUMNS.map { |name| name.to_s } )
+    end
+
+    it 'includes a row for each meter' do
+      @csv.size.should eql( Meter.where( @conditions ).count + 1 )
+    end
+
+  end
+
+  #############################################################################
+  # Meter::select_meters
+
+  describe '::select_meters' do
+
+    before( :each ) do
+      setup_meters
+    end
+
+    it 'selects and yields meters that match the given conditions' do
+      count = 0
+      Meter.send( :select_meters, @range, @names ) do |meter|
+        @names.should include( meter.name )
+        @range.should include( meter.created_on )
+        count += 1
+      end
+
+      count.should eql( Meter.where( @conditions ).count )
     end
 
   end

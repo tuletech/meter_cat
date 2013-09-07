@@ -1,5 +1,7 @@
 # A Meter is simply an integer value for a unique name+date pair
 
+require 'csv'
+
 module MeterCat
   class Meter < ActiveRecord::Base
 
@@ -7,6 +9,8 @@ module MeterCat
 
     ###########################################################################
     # Constants
+
+    CSV_COLUMNS = [ :name, :date, :value ].freeze
 
     # The expiration time for an in-memory cached meter
 
@@ -93,17 +97,34 @@ module MeterCat
     def self.to_h( range, names = nil )
       meters = {}
 
-      conditions = {}
-      conditions[ :created_on ] = range if range
-      conditions[ :name ] = names if names
-
-      Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
+      select_meters( range, names ) do |meter|
         name = meter.name.to_sym
         meters[ name ] ||= {}
         meters[ name ][ meter.created_on ] = meter.value
       end
 
       return meters
+    end
+
+    def self.to_csv( range, names = nil  )
+      CSV.generate do |csv|
+        csv << CSV_COLUMNS
+        select_meters( range, names ) do |meter|
+          csv << [ meter.name, meter.created_on, meter.value ]
+        end
+      end
+    end
+
+  protected
+
+    def self.select_meters( range, names )
+      conditions = {}
+      conditions[ :created_on ] = range if range
+      conditions[ :name ] = names if names
+
+      Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
+        yield meter
+      end
     end
 
   end
