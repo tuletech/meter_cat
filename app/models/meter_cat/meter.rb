@@ -10,8 +10,6 @@ module MeterCat
     ###########################################################################
     # Constants
 
-    CSV_COLUMNS = [ :name, :date, :value ].freeze
-
     # The expiration time for an in-memory cached meter
 
     DEFAULT_EXPIRATION = 3600
@@ -110,7 +108,7 @@ module MeterCat
       return meters
     end
 
-    # Returns a CSV
+    # Returns a CSV where rows represent days
 
     def self.to_csv( range, names = nil  )
       meters = to_h( range, names )
@@ -121,9 +119,6 @@ module MeterCat
         range.each do |date|
           csv << [ date ] + keys.map { |key| meters[ key ][ date ] }
         end
-        #select_meters( range, names ) do |meter|
-        #  csv << [ meter.name, meter.created_on, meter.value ]
-        #end
       end
     end
 
