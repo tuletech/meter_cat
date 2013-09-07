@@ -97,7 +97,11 @@ module MeterCat
     def self.to_h( range, names = nil )
       meters = {}
 
-      select_meters( range, names ) do |meter|
+      conditions = {}
+      conditions[ :created_on ] = range if range
+      conditions[ :name ] = names if names
+
+      Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
         name = meter.name.to_sym
         meters[ name ] ||= {}
         meters[ name ][ meter.created_on ] = meter.value
@@ -106,24 +110,20 @@ module MeterCat
       return meters
     end
 
+    # Returns a CSV
+
     def self.to_csv( range, names = nil  )
+      meters = to_h( range, names )
+      keys = meters.keys.sort!
+
       CSV.generate do |csv|
-        csv << CSV_COLUMNS
-        select_meters( range, names ) do |meter|
-          csv << [ meter.name, meter.created_on, meter.value ]
+        csv << [ nil ] + keys
+        range.each do |date|
+          csv << [ date ] + keys.map { |key| meters[ key ][ date ] }
         end
-      end
-    end
-
-  protected
-
-    def self.select_meters( range, names )
-      conditions = {}
-      conditions[ :created_on ] = range if range
-      conditions[ :name ] = names if names
-
-      Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
-        yield meter
+        #select_meters( range, names ) do |meter|
+        #  csv << [ meter.name, meter.created_on, meter.value ]
+        #end
       end
     end
 

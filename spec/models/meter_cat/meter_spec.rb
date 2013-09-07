@@ -276,33 +276,12 @@ describe MeterCat::Meter do
     end
 
     it 'includes a header row' do
-      @csv[ 0 ].should eql( Meter::CSV_COLUMNS.map { |name| name.to_s } )
+      expected = [ nil ] + Meter.to_h( @range, @names ).keys.sort!.map { |name| name.to_s }
+      @csv[ 0 ].should eql( expected )
     end
 
     it 'includes a row for each meter' do
       @csv.size.should eql( Meter.where( @conditions ).count + 1 )
-    end
-
-  end
-
-  #############################################################################
-  # Meter::select_meters
-
-  describe '::select_meters' do
-
-    before( :each ) do
-      setup_meters
-    end
-
-    it 'selects and yields meters that match the given conditions' do
-      count = 0
-      Meter.send( :select_meters, @range, @names ) do |meter|
-        @names.should include( meter.name )
-        @range.should include( meter.created_on )
-        count += 1
-      end
-
-      count.should eql( Meter.where( @conditions ).count )
     end
 
   end

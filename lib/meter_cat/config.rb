@@ -13,6 +13,19 @@ module MeterCat
       @retry_delay = Meter::DEFAULT_RETRY_DELAY
     end
 
+    def ratio( name, numerator, denominator )
+
+    end
+
+    def percentage( name, numerator, denominator )
+
+
+    end
+
+    def sum( name, names )
+
+    end
+
   end
 
 end
