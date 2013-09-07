@@ -1,7 +1,9 @@
 require 'spec_helper'
 
+include MeterCat
+
 describe MeterCat::MeterController do
-  fixtures :meters
+
   routes { MeterCat::Engine.routes }
 
   it 'is a subclass of ApplicationController' do
@@ -46,9 +48,12 @@ describe MeterCat::MeterController do
     context 'with params' do
 
       before( :each ) do
-        @date = Date.civil( 1971, 7, 27 )
+        Meter.delete_all
+        @user_created_1 = FactoryGirl.create( :user_created_1 )
+
+        @date = @user_created_1.created_on
         @days = 30
-        @names = [ meters( :user_created_1 ).name ]
+        @names = [ @user_created_1.name ]
 
         params = {
             :date => {

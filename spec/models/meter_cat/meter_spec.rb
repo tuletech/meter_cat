@@ -4,16 +4,10 @@ include MeterCat
 
 describe MeterCat::Meter do
 
-  fixtures :meters
-
   before( :each ) do
     Kernel.stub( :sleep )
 
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
-  end
-
-  it 'has a fixture' do
-    Meter.count.should_not eql( 0 )
   end
 
   describe 'constants' do
@@ -222,9 +216,14 @@ describe MeterCat::Meter do
   describe '::to_h' do
 
     before( :each ) do
-      @start = meters( :user_created_2 ).created_on
-      @stop = meters( :user_created_3 ).created_on
+      MeterCat::Meter.delete_all
+      @user_created_1 = FactoryGirl.create( :user_created_1 )
+      @user_created_2 = FactoryGirl.create( :user_created_2 )
+
+      @start = @user_created_1.created_on
+      @stop = @user_created_2.created_on
       @range = @start .. @stop
+
       @to_h = Meter.to_h( @range )
     end
 

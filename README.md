@@ -10,10 +10,9 @@ This engine makes monitoring the usage history of your Rails environment easier.
  * [Best practice for specifying dependencies that cannot be put in gemspec?](https://groups.google.com/forum/?fromgroups=#!topic/ruby-bundler/U7FMRAl3nJE)
  * [Clarifying the Roles of the .gemspec and Gemfile](http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/)
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
+ * [FactoryGirl](https://github.com/thoughtbot/factory_girl)
 
 ##TODO
-
- * spec problem - "rspec spec" running, "rspec helpers' not
 
  * Search logic
     * Wire in name selection
