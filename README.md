@@ -14,7 +14,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
 ##TODO
 
  * Search logic - ensure bookmarkable
-    * Spec controller
     * Move search form from html to helper
     * Wire in name selection
 

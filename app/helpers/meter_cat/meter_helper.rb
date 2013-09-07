@@ -21,6 +21,10 @@ module MeterCat
       end
     end
 
+    def meter_form( date, days, names )
+      render :partial => 'form', :locals => { :date => date, :days => days, :names => names }
+    end
+
     # Constructs an HTML table header
 
     def meter_header( range )
