@@ -10,7 +10,15 @@ describe 'meter_cat rake tasks' do
     load 'lib/tasks/meter_cat.rake'
   end
 
-  describe 'rake meter_cat:random[name,min,max,start,stop]' do
+  describe 'meter_cat:mail' do
+
+    it 'calls sends the report email' do
+      MeterCat.should_receive( :mail )
+      @rake[ 'meter_cat:mail' ].invoke
+    end
+  end
+
+  describe 'meter_cat:random[name,min,max,start,stop]' do
 
     before( :each ) do
       @name = 'test'

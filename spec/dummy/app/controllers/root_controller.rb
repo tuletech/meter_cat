@@ -4,7 +4,7 @@ class RootController < ApplicationController
   end
 
   def mail
-    MeterCat::MeterMailer.report.deliver
+    MeterCat.mail
     render :text => 'Mailed'
   end
 

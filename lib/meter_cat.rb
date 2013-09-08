@@ -17,6 +17,10 @@ module MeterCat
     yield config
   end
 
+  def self.mail
+    MeterCat::MeterMailer.report.deliver
+  end
+
   def self.names
     ( Meter.names + MeterCat::config.calculator.keys.map { |key| key.to_s} ).sort
   end

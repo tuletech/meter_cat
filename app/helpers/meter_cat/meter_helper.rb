@@ -32,7 +32,7 @@ module MeterCat
     def meter_header( range )
       content_tag( :tr ) do
         concat content_tag( :th )
-        range.each { |date| concat content_tag( :th, date.strftime( '%-m/%-d/%y' ) ) }
+        range.to_a.reverse.each { |date| concat content_tag( :th, date.strftime( '%-m/%-d/%y' ) ) }
       end
     end
 
@@ -43,7 +43,7 @@ module MeterCat
 
       content_tag( :tr ) do
         concat content_tag( :th, name, :align => 'left', :style => style )
-        range.each do |date|
+        range.to_a.reverse.each do |date|
           value = meters[ name ][ date ] || 0
           concat content_tag( :td, value, :align => 'right', :style => style  )
         end

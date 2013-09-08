@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include MeterCat
+
 describe MeterCat do
 
   it 'requires the engine' do
@@ -50,6 +52,17 @@ describe MeterCat do
 
     it 'yields the configuration' do
       MeterCat.configure { |config| config.should be_an_instance_of( MeterCat::Config ) }
+    end
+
+  end
+
+  describe '::mail' do
+
+    it 'mails the report' do
+      report = MeterCat::MeterMailer.report
+      MeterCat::MeterMailer.should_receive( :report ).and_return( report )
+      report.should_receive( :deliver )
+      MeterCat.mail
     end
 
   end

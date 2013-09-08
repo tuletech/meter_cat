@@ -23,12 +23,10 @@ This engine makes monitoring the usage history of your Rails environment easier.
    * Memoize Meter.names
 
  * Cosmetics
-   * Reverse time order in table.  Newest first
    * Filter descriptions to match data in table
 
  * Added "Getting Started" and "How To" sections to this README
    * Configuration
-   * rspec matchers
    * Randomly generating stats for dev
    * Setting up dev environment - cd spec/dummy && rake db:fixtures:load
 
