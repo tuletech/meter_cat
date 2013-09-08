@@ -13,7 +13,7 @@ module MeterCat
 
       @all_names = MeterCat.names
       @names ||= @all_names
-      @date ||= Meter.maximum( :created_on )
+      @date ||= Date.today
       @days ||= DEFAULT_DAYS
 
       @range = (@date - @days) .. @date

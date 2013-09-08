@@ -19,8 +19,12 @@ describe MeterCat::MeterController do
     before( :each ) do
       MeterCat.config.calculator.clear
       Meter.delete_all
+
       @user_created_3 = FactoryGirl.create( :user_created_3 )
       @login_failed_3 = FactoryGirl.create( :login_failed_3 )
+
+      @today = Date.civil( 2013, 9, 7 )
+      Date.stub( :today ).and_return( @today )
     end
 
     it 'gets successfully' do
@@ -65,20 +69,19 @@ describe MeterCat::MeterController do
     context 'without params' do
 
       before( :each ) do
-        @date = Meter.maximum( :created_on )
         @days = MeterController::DEFAULT_DAYS
 
         get :index
       end
 
       it 'uses default values' do
-        expect( assigns( :date ) ).to eql( @date )
+        expect( assigns( :date ) ).to eql( @today )
         expect( assigns( :days ) ).to eql( @days )
         expect( assigns( :names ) ).to eql( MeterCat.names )
       end
 
       it 'assigns range and meters' do
-        range = (@date - @days) .. @date
+        range = (@today - @days) .. @today
 
         expect( assigns( :range ) ).to eql( range )
         expect( assigns( :meters ) ).to eql( Meter.to_h( range ) )
