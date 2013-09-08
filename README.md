@@ -12,11 +12,14 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 		mount MeterCat::Engine => '/meter_cat'
 
-3. 'rake meter_cat:install:migrations' and 'rake db:migrate'
+3. Install and run migrations
+
+    rake meter_cat:install:migrations
+    rake db:migrate
 
 4. Generate some random data
 
-        rake meter_cat:random[my_test,0,100,365]
+    rake meter_cat:random[my_test,0,100,365]
 
 5. Restart your Rails server
 
@@ -26,19 +29,49 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ### Increment A Meter
 
-_TBD_
+The easiest way is to call `MeterCat.add`.
+
+        MeterCat.add( :any_name_you_like )
+
+You can also optionally pass a value. It defaults to 1.
+
+        MeterCat.add( :donuts, 12 )
 
 ### Generate Development Data
 
-_TBD_
+`rake meter_cat:random[name, min, max, days]` can be used to generate random data for development.
+
+The arguments are defined as follows:
+
+ * name = String, Any string up to 64 characters long
+ * min = Integer, Minimum generated value
+ * max = Integer, Maximum generated value
+ * days = Integer, Days prior to date to generate values for
+
+e.g. The following command will generate data for `:my_test` with value between 0 and 100 for the last year.
+
+        rake meter_cat:random[my_test,0,100,365]
 
 ### Configure Email Settings
 
-_TBD_
+Create or add to `config/initializers/meter_cat.rb`
 
-### Configure Cache Settings
+    MeterCat.configure do |config|
+      config.noreply = 'noreply@schrodingersbox.com'
+      config.to = 'ops@schrodingersbox.com'
+      config.from = 'ops@schrodingersbox.com'
+      config.subject = "#{Rails.env.upcase} StatusCat Failure"
+    end
 
-_TBD_
+### Email A Meter Report
+
+You can email a meter report using rake:
+
+    rake meter_cat:mail
+
+You can email a meter report in code:
+
+    MeterCat.mail
 
 ## Reference
 
@@ -57,8 +90,5 @@ _TBD_
 
  * Optimize
    * Stress test with large (> 100k) data set
-
- * Added "Getting Started" and "How To" sections to this README
-   * Setting up dev environment - cd spec/dummy && rake db:fixtures:load
 
  * Publish as gem
