@@ -75,7 +75,7 @@ describe MeterCat do
   describe '::names' do
 
     it 'returns a concatenation of db names and configured calculations' do
-      expected = ( Meter.names + MeterCat::config.calculator.keys.map { |key| key.to_s} ).sort
+      expected = ( Meter.names + MeterCat::config.calculator.keys ).sort
       MeterCat.names.should eql( expected )
     end
   end
