@@ -14,7 +14,6 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Email logic
  * Rake tasks - just mailer?
 
  * RSpec matchers for testing meter behavior
@@ -24,6 +23,7 @@ This engine makes monitoring the usage history of your Rails environment easier.
    * Memoize Meter.names
 
  * Cosmetics
+   * Reverse time order in table.  Newest first
    * Filter descriptions to match data in table
 
  * Added "Getting Started" and "How To" sections to this README

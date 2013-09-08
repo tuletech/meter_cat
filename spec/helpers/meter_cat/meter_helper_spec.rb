@@ -1,9 +1,13 @@
 require 'spec_helper'
 
+include MeterCat
+
 describe MeterCat::MeterHelper do
 
   before( :each ) do
-    MeterCat::Meter.delete_all
+    Meter.delete_all
+    MeterCat.config.calculator.clear
+
     @user_created_1 = FactoryGirl.create( :user_created_1 )
     @user_created_2 = FactoryGirl.create( :user_created_2 )
     @user_created_3 = FactoryGirl.create( :user_created_3 )
