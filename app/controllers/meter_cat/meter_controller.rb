@@ -11,10 +11,11 @@ module MeterCat
       @days = params[ :days ].to_i if params[ :days ]
       @names = params[ :names ].map { |name| name.to_sym } if params[ :names ]
 
+      @all_names = MeterCat.names
+      @names ||= @all_names
       @date ||= Meter.maximum( :created_on )
       @days ||= DEFAULT_DAYS
 
-      @all_names = MeterCat.names
       @range = (@date - @days) .. @date
       @meters = Meter.to_h( @range, @names )
 

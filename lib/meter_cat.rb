@@ -23,7 +23,7 @@ module MeterCat
   end
 
   def self.names
-    ( Meter.names + MeterCat::config.calculator.keys.map { |key| key.to_s} ).sort
+    ( Meter.names + MeterCat::config.calculator.keys ).sort
   end
 
 end

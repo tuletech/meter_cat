@@ -74,7 +74,7 @@ describe MeterCat::MeterController do
       it 'uses default values' do
         expect( assigns( :date ) ).to eql( @date )
         expect( assigns( :days ) ).to eql( @days )
-        expect( assigns( :names ) ).to be_nil
+        expect( assigns( :names ) ).to eql( MeterCat.names )
       end
 
       it 'assigns range and meters' do

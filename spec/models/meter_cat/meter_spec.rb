@@ -168,7 +168,7 @@ describe MeterCat::Meter do
   describe '::names' do
 
     it 'returns all distinct meter names from the db' do
-      expected = Meter.uniq.pluck( :name ).sort
+      expected = Meter.uniq.pluck( :name ).sort.map { |name| name.to_sym }
       Meter.names.should eql( expected )
     end
 
