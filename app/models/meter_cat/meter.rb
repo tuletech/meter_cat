@@ -72,14 +72,14 @@ module MeterCat
     end
 
     # Generates a random sequence for a meter given the following args:
-    # [ :name, :min, :max, :start, :stop ]
+    # [ :name, :min, :max, :days ]
 
     def self.random( args )
       name = args[ :name ]
       min = args[ :min ].to_i
       max = args[ :max ].to_i
-      start = Date.parse( args[ :start ] )
-      stop = Date.parse( args[ :stop ] )
+      stop = Date.today
+      start = Date.today - args[ :days ].to_i
 
       (start .. stop).each do |date|
         value = min + rand( max - min )

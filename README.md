@@ -4,7 +4,7 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ## Getting Started
 
-1. Add this to your `Gemfile`
+1. Add this to your `Gemfile` and `bundle install`
 
 		gem 'meter_cat', :git => 'https://github.com/schrodingersbox/meter_cat.git'
 
@@ -12,13 +12,15 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 		mount MeterCat::Engine => '/meter_cat'
 
-3. Restart your Rails server
+3. 'rake meter_cat:install:migrations' and 'rake db:migrate'
 
 4. Generate some random data
 
-        rake meter_cat:random[:my_test,0,100,2013-01-01,2013-12-31]
+        rake meter_cat:random[my_test,0,100,365]
 
-5.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
+5. Restart your Rails server
+
+6.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
 
 ## How To
 

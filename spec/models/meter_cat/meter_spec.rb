@@ -184,25 +184,21 @@ describe MeterCat::Meter do
           :name => 'test',
           :min => '1',
           :max => '10',
-          :start => '2013-01-01',
-          :stop => '2013-01-05'
+          :days => '365'
       }
 
       @name = @args[ :name ]
       @min = @args[ :min ].to_i
       @max = @args[ :max ].to_i
-      @start = Date.parse( @args[ :start ] )
-      @stop = Date.parse( @args[ :stop ] )
+      @days = @args[ :days ]
     end
 
     it 'creates meters within the given name and date range' do
       Meter.delete_all
       Meter.random( @args )
-      Meter.count.should eql( @stop - @start + 1 )
+      Meter.count.should eql( @days.to_i + 1 )
 
-      (@start..@stop).each do |date|
-        meter = Meter.find_by_name_and_created_on( @name, date )
-        meter.should be_present
+      Meter.all.each do |meter|
         meter.value.should >= @min
         meter.value.should <= @max
       end

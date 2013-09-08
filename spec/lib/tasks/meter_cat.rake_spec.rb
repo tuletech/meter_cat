@@ -24,14 +24,13 @@ describe 'meter_cat rake tasks' do
   #############################################################################
   # meter_cat:random[name,min,max,start,stop]
 
-  describe 'meter_cat:random[name,min,max,start,stop]' do
+  describe 'meter_cat:random[name,min,max,days]' do
 
     before( :each ) do
       @name = 'test'
       @min = '1'
       @max = '10'
-      @start = '2013-01-01'
-      @stop = '2013-01-05'
+      @days = '365'
     end
 
     it 'calls Meter::random with the args' do
@@ -39,10 +38,9 @@ describe 'meter_cat rake tasks' do
         args[ :name ].should eql( @name )
         args[ :min ].should eql( @min )
         args[ :max ].should eql( @max )
-        args[ :start ].should eql( @start )
-        args[ :stop ].should eql( @stop )
+        args[ :days ].should eql( @days )
       end
-      @rake[ 'meter_cat:random' ].invoke( @name, @min , @max, @start, @stop )
+      @rake[ 'meter_cat:random' ].invoke( @name, @min , @max, @days )
     end
 
   end
