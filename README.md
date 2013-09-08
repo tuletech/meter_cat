@@ -2,6 +2,32 @@
 
 This engine makes monitoring the usage history of your Rails environment easier.
 
+## Getting Started
+
+1. Add this to your `Gemfile`
+
+		gem 'meter_cat', :git => 'https://github.com/schrodingersbox/meter_cat.git'
+
+2. Add this to your `config/routes.rb`
+
+		mount MeterCat::Engine => '/meter_cat'
+
+3. Restart your Rails server
+
+4.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
+
+## How To
+
+### Increment A Meter
+
+### Configure Email Settings
+
+### Configure Cache Settings
+
+### Generate Development Data
+
+
+
 ## Reference
 
  * [Getting Started with Engines](http://edgeguides.rubyonrails.org/engines.html)
@@ -14,13 +40,12 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ##TODO
 
- * Rake tasks - just mailer?
-
- * RSpec matchers for testing meter behavior
+ * Add 'as needed'
+    * Rake task to bump a meter with args
+    * RSpec matchers for testing meter behavior
 
  * Optimize
    * Stress test with large (> 100k) data set
-   * Memoize Meter.names
 
  * Cosmetics
    * Filter descriptions to match data in table

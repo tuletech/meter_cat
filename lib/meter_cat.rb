@@ -5,7 +5,7 @@ require 'meter_cat/config'
 
 module MeterCat
 
-  def add( name, value = 1, created_on = Date.today )
+  def self.add( name, value = 1, created_on = Date.today )
     MeterCat::Cache.instance.add( name, value, created_on )
   end
 

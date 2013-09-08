@@ -1,5 +1,5 @@
-<ul>
-  <li><a href="/meter_cat">/meter_cat</a></li>
-  <li><a href="mail">mail</a></li>
-  <li><a href="/status_cat">/status_cat</a></li>
-</ul>
+<h1><%= t( :title, :scope => :meter_cat ) %></h1>
+<%= meter_table( @meters, @range ) %>
+
+<%= status_title %>
+<%= status_table( StatusCat::Status.all ) %>

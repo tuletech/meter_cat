@@ -10,6 +10,9 @@ describe 'meter_cat rake tasks' do
     load 'lib/tasks/meter_cat.rake'
   end
 
+  #############################################################################
+  # meter_cat:mail
+
   describe 'meter_cat:mail' do
 
     it 'calls sends the report email' do
@@ -17,6 +20,9 @@ describe 'meter_cat rake tasks' do
       @rake[ 'meter_cat:mail' ].invoke
     end
   end
+
+  #############################################################################
+  # meter_cat:random[name,min,max,start,stop]
 
   describe 'meter_cat:random[name,min,max,start,stop]' do
 
