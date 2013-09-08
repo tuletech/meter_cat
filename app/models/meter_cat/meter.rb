@@ -95,9 +95,18 @@ module MeterCat
     def self.to_h( range, names = nil )
       meters = {}
 
+      # Inject dependencies into the names array
+
+      calculator = MeterCat.config.calculator
+      calculator.dependencies( names ) if names
+
+      # Build conditions for the query
+
       conditions = {}
       conditions[ :created_on ] = range if range
       conditions[ :name ] = names if names
+
+      # Retrieve the data
 
       Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
         name = meter.name.to_sym
@@ -105,7 +114,10 @@ module MeterCat
         meters[ name ][ meter.created_on ] = meter.value
       end
 
-      MeterCat.config.calculator.calculate( meters, range, names )
+      # Fill in calculated and missing values
+
+      calculator.calculate( meters, range, names )
+      names.each { |name| meters[ name ] ||= {} } if names
 
       return meters
     end

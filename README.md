@@ -24,13 +24,19 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 ### Increment A Meter
 
-### Configure Email Settings
-
-### Configure Cache Settings
+_TBD_
 
 ### Generate Development Data
 
+_TBD_
 
+### Configure Email Settings
+
+_TBD_
+
+### Configure Cache Settings
+
+_TBD_
 
 ## Reference
 
@@ -46,18 +52,11 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
  * Add 'as needed'
     * Rake task to bump a meter with args
-    * RSpec matchers for testing meter behavior
 
  * Optimize
    * Stress test with large (> 100k) data set
 
- * Cosmetics
-   * Add empty rows for meters with no values in date range
-   * Filter descriptions to match data in table
-
  * Added "Getting Started" and "How To" sections to this README
-   * Configuration
-   * Randomly generating stats for dev
    * Setting up dev environment - cd spec/dummy && rake db:fixtures:load
 
  * Publish as gem

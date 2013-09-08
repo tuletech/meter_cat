@@ -16,11 +16,22 @@ module MeterCat
 
     def calculate( meters, range, names = nil )
       (names || keys).each do |name|
-        name = name.to_sym
         if calculation = fetch( name, nil )
           meters[ name ] = {}
           range.each do |date|
             meters[ name ][ date] = fetch( name ).calculate( meters, date )
+          end
+        end
+      end
+    end
+
+    # Add any missing names required for calculations that are named
+
+    def dependencies( names )
+      names.each do |name|
+        if calculation = fetch( name, nil )
+          calculation.dependencies.each do |dependency|
+            names << dependency unless names.include?( dependency )
           end
         end
       end
@@ -52,6 +63,10 @@ module MeterCat
 
       return sprintf( @format, value )
     end
+
+    def dependencies
+      [ @numerator, @denominator ]
+    end
   end
 
   #############################################################################
@@ -68,6 +83,10 @@ module MeterCat
       sum = 0
       values.each { |name| sum += ( meters[ name ][ date ] || 0 ) if meters[ name ] }
       return sum
+    end
+
+    def dependencies
+      values
     end
   end
 

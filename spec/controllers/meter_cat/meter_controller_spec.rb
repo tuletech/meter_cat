@@ -91,7 +91,7 @@ describe MeterCat::MeterController do
       before( :each ) do
         @date = @user_created_3.created_on
         @days = 30
-        @names = [ @user_created_3.name ]
+        @names = [ @user_created_3.name.to_sym ]
 
         params = {
             :date => {
@@ -109,7 +109,7 @@ describe MeterCat::MeterController do
       it 'uses param values' do
         expect( assigns( :date ) ).to eql( @date )
         expect( assigns( :days ) ).to eql( @days )
-        expect( assigns( :names ) ).to eql( @names )
+        expect( assigns( :names ) ).to eql( @names.map { |name| name.to_sym } )
       end
 
       it 'assigns range and meters' do

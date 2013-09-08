@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include MeterCat
+
 describe MeterCat::Calculator do
 
   before( :each ) do
@@ -79,6 +81,30 @@ describe MeterCat::Calculator do
   end
 
   #############################################################################
+  # Calculator#dependencies
+
+  describe '#dependencies' do
+
+    before( :each ) do
+      setup_calculator
+    end
+
+    it 'adds dependencies if they are missing' do
+      names = [ :test_ratio ]
+      @calculator.dependencies( names )
+      names.should eql( [ :test_ratio, @user_created_1.name.to_sym, @login_failed_3.name.to_sym ] )
+    end
+
+
+    it 'does not add dependencies if they are already present' do
+      names = [ :test_ratio, @user_created_1.name.to_sym, @login_failed_3.name.to_sym ]
+      @calculator.dependencies( names )
+      names.should eql( [ :test_ratio, @user_created_1.name.to_sym, @login_failed_3.name.to_sym ] )
+    end
+
+  end
+
+  #############################################################################
   # MeterCat::Divide
 
   describe MeterCat::Divide do
@@ -107,6 +133,10 @@ describe MeterCat::Calculator do
       @divide.calculate( @to_h, @login_failed_3.created_on ).should eql( '0.0%' )
     end
 
+    it 'returns its dependencies' do
+      @divide.dependencies.should eql( [ @numerator, @denominator ] )
+    end
+
   end
 
   #############################################################################
@@ -126,6 +156,10 @@ describe MeterCat::Calculator do
 
     it 'calculates a sum of the specified values' do
       @sum.calculate( @to_h, @login_failed_3.created_on ).should eql( 16 )
+    end
+
+    it 'returns its dependencies' do
+      @sum.dependencies.should eql( @values )
     end
 
   end

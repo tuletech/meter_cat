@@ -242,6 +242,21 @@ describe MeterCat::Meter do
       @to_h.should_not have_key( @login_failed_3.name.to_sym )
     end
 
+    it 'injects dependencies into the names array' do
+      MeterCat.config.calculator.should_receive( :dependencies ).with( @names )
+      @to_h = Meter.to_h( @range, @names )
+    end
+
+
+    it 'adds calculated values to the results' do
+      MeterCat.config.calculator.should_receive( :calculate ).with( kind_of( Hash ), @range, @names )
+      @to_h = Meter.to_h( @range, @names )
+    end
+
+    it 'tolerates a nil names array' do
+      @to_h = Meter.to_h( @range, @names )
+    end
+
   end
 
   #############################################################################

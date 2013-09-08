@@ -52,7 +52,7 @@ def setup_meters
   @stop = @user_created_3.created_on
   @range = @start .. @stop
 
-  @names = [ @user_created_1.name ]
+  @names = [ @user_created_1.name.to_sym ]
 
   @conditions = { :created_on => @range, :name => @names }
 end

@@ -9,7 +9,7 @@ module MeterCat
         @date = Date.civil( date[ :year ].to_i, date[ :month ].to_i, date[ :day ].to_i )
       end
       @days = params[ :days ].to_i if params[ :days ]
-      @names = params[ :names ]
+      @names = params[ :names ].map { |name| name.to_sym } if params[ :names ]
 
       @date ||= Meter.maximum( :created_on )
       @days ||= DEFAULT_DAYS
