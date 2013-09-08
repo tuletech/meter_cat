@@ -19,8 +19,13 @@ module MeterCat
       @meters = Meter.to_h( @range, @names )
 
       respond_to do |format|
-        format.html
-        format.csv { render :text => Meter.to_csv( @range, @names ), :content_type => 'text/csv' }
+        format.html do
+          MeterCat.add( :meter_cat_html )
+        end
+        format.csv do
+          MeterCat.add( :meter_cat_csv )
+          render :text => Meter.to_csv( @range, @names ), :content_type => 'text/csv'
+        end
       end
     end
 

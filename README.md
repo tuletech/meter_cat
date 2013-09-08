@@ -14,7 +14,11 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 3. Restart your Rails server
 
-4.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
+4. Generate some random data
+
+        rake meter_cat:random[:my_test,0,100,2013-01-01,2013-12-31]
+
+5.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
 
 ## How To
 
@@ -48,6 +52,7 @@ This engine makes monitoring the usage history of your Rails environment easier.
    * Stress test with large (> 100k) data set
 
  * Cosmetics
+   * Add empty rows for meters with no values in date range
    * Filter descriptions to match data in table
 
  * Added "Getting Started" and "How To" sections to this README

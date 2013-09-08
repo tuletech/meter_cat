@@ -34,14 +34,32 @@ describe MeterCat::MeterController do
       expect( assigns( :all_names ) ).to be_present
     end
 
-    it 'converts meters to CSV' do
-      Meter.should_receive( :to_csv )
-      get :index, :format => 'csv'
+    context 'formatting CSV' do
+
+      it 'converts meters to CSV' do
+        Meter.should_receive( :to_csv )
+        get :index, :format => 'csv'
+      end
+
+      it 'returns CSV' do
+        get :index, :format => 'csv'
+        response.body.should eql_file( 'spec/data/index.csv' )
+      end
+
+      it 'adds to the :meter_cat_csv meter' do
+        MeterCat.should_receive( :add ).with( :meter_cat_csv )
+        get :index, :format => 'csv'
+      end
+
     end
 
-    it 'returns CSV' do
-      get :index, :format => 'csv'
-      response.body.should eql_file( 'spec/data/index.csv' )
+    context 'formatting HTML' do
+
+      it 'adds to the :meter_cat_html meter' do
+        MeterCat.should_receive( :add ).with( :meter_cat_html )
+        get :index, :format => 'html'
+      end
+
     end
 
     context 'without params' do

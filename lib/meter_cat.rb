@@ -19,6 +19,7 @@ module MeterCat
 
   def self.mail
     MeterCat::MeterMailer.report.deliver
+    MeterCat.add( :meter_cat_mail )
   end
 
   def self.names

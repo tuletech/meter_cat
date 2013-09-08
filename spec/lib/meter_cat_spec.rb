@@ -65,6 +65,11 @@ describe MeterCat do
       MeterCat.mail
     end
 
+    it 'adds to the :meter_cat_mail meter' do
+      MeterCat.should_receive( :add ).with( :meter_cat_mail )
+      MeterCat.mail
+    end
+
   end
 
   describe '::names' do
