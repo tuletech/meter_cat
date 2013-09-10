@@ -12,6 +12,9 @@ describe MeterCat do
     MeterCat.should_not be_nil
   end
 
+  #############################################################################
+  # MeterCat::add
+
   describe '::add' do
 
     before( :each ) do
@@ -40,6 +43,9 @@ describe MeterCat do
 
   end
 
+  #############################################################################
+  # MeterCat::config
+
   describe '::config' do
 
     it 'returns the configuration' do
@@ -48,6 +54,9 @@ describe MeterCat do
 
   end
 
+  #############################################################################
+  # MeterCat::configure
+
   describe '::configure' do
 
     it 'yields the configuration' do
@@ -55,6 +64,9 @@ describe MeterCat do
     end
 
   end
+
+  #############################################################################
+  # MeterCat::mail
 
   describe '::mail' do
 
@@ -71,6 +83,9 @@ describe MeterCat do
     end
 
   end
+
+  #############################################################################
+  # MeterCat::names
 
   describe '::names' do
 
