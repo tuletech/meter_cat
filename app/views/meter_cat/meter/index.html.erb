@@ -4,13 +4,14 @@
     <%= meter_table( @meters, @range ) %>
 
     <hr/>
-    <h2><%= t( :search, :scope => :meter_cat ) %></h2>
-    <%= meter_form( @date, @days, @names, @all_names ) %>
-
-    <hr/>
     <h2><%= t( :descriptions, :scope => :meter_cat ) %></h2>
     <%= meter_descriptions( @meters ) %>
 
     <hr/>
+    <h2><%= t( :search, :scope => :meter_cat ) %></h2>
+    <%= meter_form( @date, @days, @names, @all_names ) %>
+
+    <hr/>
     <%= MeterCat::Meter.count %> records
+
 </div>

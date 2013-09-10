@@ -12,7 +12,7 @@ module MeterCat
       @names = params[ :names ].map { |name| name.to_sym } if params[ :names ]
 
       @all_names = MeterCat.names
-      @names ||= @all_names
+#      @names ||= @all_names
       @date ||= Date.today
       @days ||= DEFAULT_DAYS
 
