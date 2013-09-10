@@ -85,10 +85,5 @@ You can email a meter report in code:
 
 ##TODO
 
- * Add 'as needed'
-    * Rake task to bump a meter with args
-
- * Optimize
-   * Stress test with large (> 100k) data set
-
+ * Rake task to bump a meter with args
  * Publish as gem

@@ -108,7 +108,7 @@ module MeterCat
 
       # Retrieve the data
 
-      Meter.select( 'name,created_on,value' ).where( conditions ).find_each do |meter|
+      Meter.select( [ :id, :name, :created_on, :value ] ).where( conditions ).find_each do |meter|
         name = meter.name.to_sym
         meters[ name ] ||= {}
         meters[ name ][ meter.created_on ] = meter.value

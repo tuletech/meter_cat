@@ -253,6 +253,14 @@ describe MeterCat::Meter do
       @to_h = Meter.to_h( @range, @names )
     end
 
+    it 'works with large batches of data' do
+      days = 2000
+      today = Date.today
+      Meter.random( :name => :test, :min => 0, :max => 100, :days => days )
+      @to_h = Meter.to_h(( today - days ) .. today )
+      @range
+    end
+
   end
 
   #############################################################################
