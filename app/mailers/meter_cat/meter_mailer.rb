@@ -1,5 +1,5 @@
 class MeterCat::MeterMailer <  ActionMailer::Base
-  helper MeterCat::MeterHelper
+  helper MeterCat::MetersHelper
 
   def report
     config = MeterCat.config

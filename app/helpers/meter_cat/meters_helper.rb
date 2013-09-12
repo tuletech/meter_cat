@@ -1,5 +1,5 @@
 module MeterCat
-  module MeterHelper
+  module MetersHelper
 
      # Constructs a single meter description
 

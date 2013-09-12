@@ -4,7 +4,7 @@ describe MeterCat::MeterMailer do
 
   it 'adds MeterCat::MeterHelper as a template helper' do
     modules = MeterCat::MeterMailer._helpers.included_modules
-    modules.should include( MeterCat::MeterHelper )
+    modules.should include( MeterCat::MetersHelper )
   end
 
   describe '#report' do

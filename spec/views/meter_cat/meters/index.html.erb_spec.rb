@@ -2,7 +2,7 @@ require 'spec_helper'
 
 include MeterCat
 
-describe 'meter_cat/meter/index.html.erb' do
+describe 'meter_cat/meters/index.html.erb' do
 
   before( :each ) do
     @range = MeterCat::Meter.minimum( :created_on ) .. MeterCat::Meter.maximum( :created_on )

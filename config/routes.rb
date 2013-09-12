@@ -1,3 +1,3 @@
 MeterCat::Engine.routes.draw do
-  root :to => 'meter#index'
+  root :to => 'meters#index'
 end

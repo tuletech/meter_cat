@@ -2,7 +2,7 @@ require 'spec_helper'
 
 include MeterCat
 
-describe MeterCat::MeterHelper do
+describe MeterCat::MetersHelper do
 
   before( :each ) do
     Meter.delete_all

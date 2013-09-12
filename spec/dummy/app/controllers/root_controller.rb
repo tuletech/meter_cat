@@ -1,6 +1,6 @@
 class RootController < ApplicationController
 
-  helper MeterCat::MeterHelper
+  helper MeterCat::MetersHelper
   helper StatusCat::StatusHelper
 
   def index

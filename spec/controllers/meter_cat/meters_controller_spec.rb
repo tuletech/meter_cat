@@ -2,7 +2,7 @@ require 'spec_helper'
 
 include MeterCat
 
-describe MeterCat::MeterController do
+describe MeterCat::MetersController do
 
   routes { MeterCat::Engine.routes }
 
@@ -11,7 +11,7 @@ describe MeterCat::MeterController do
   end
 
   it 'defines a constant for default number of days to report on' do
-    MeterController::DEFAULT_DAYS.should be_present
+    MetersController::DEFAULT_DAYS.should be_present
   end
 
   describe '#index' do
@@ -69,7 +69,7 @@ describe MeterCat::MeterController do
     context 'without params' do
 
       before( :each ) do
-        @days = MeterController::DEFAULT_DAYS
+        @days = MetersController::DEFAULT_DAYS
 
         get :index
       end
