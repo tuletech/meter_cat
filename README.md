@@ -85,6 +85,5 @@ You can email a meter report in code:
 
 ##TODO
 
- * Rename MeterController to MetersController
  * Rake task to bump a meter with args
  * Publish as gem
