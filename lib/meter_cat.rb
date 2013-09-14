@@ -1,6 +1,5 @@
 require 'meter_cat/engine'
 require 'meter_cat/calculator'
-require 'meter_cat/cache'
 require 'meter_cat/config'
 
 module MeterCat

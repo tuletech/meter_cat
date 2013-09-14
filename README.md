@@ -85,5 +85,6 @@ You can email a meter report in code:
 
 ##TODO
 
+ * Action to bump meter and return an image, default to 1px transparent
  * Rake task to bump a meter with args
  * Publish as gem

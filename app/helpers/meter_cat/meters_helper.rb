@@ -39,7 +39,7 @@ module MeterCat
     # Constructs an HTML table row
 
     def meter_row( meters, range, name )
-      style = cycle( '', 'background-color: #cccccc;' )
+      style = cycle( '', 'background-color: #dddddd;' )
 
       content_tag( :tr ) do
         concat content_tag( :th, name, :align => 'left', :style => style )
