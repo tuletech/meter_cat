@@ -14,8 +14,8 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 3. Install and run migrations
 
-    rake meter_cat:install:migrations
-    rake db:migrate
+        rake meter_cat:install:migrations
+        rake db:migrate
 
 4. Generate some random data
 
@@ -60,7 +60,7 @@ Create or add to `config/initializers/meter_cat.rb`
       config.noreply = 'noreply@schrodingersbox.com'
       config.to = 'ops@schrodingersbox.com'
       config.from = 'ops@schrodingersbox.com'
-      config.subject = "#{Rails.env.upcase} StatusCat Failure"
+      config.subject = "#{Rails.env.upcase} MeterCat Report"
     end
 
 ### Email A Meter Report
