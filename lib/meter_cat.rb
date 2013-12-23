@@ -8,6 +8,10 @@ module MeterCat
     MeterCat::Cache.instance.add( name, value, created_on )
   end
 
+  def self.set( name, value = 1, created_on = Date.today )
+    MeterCat::Meter.set( name, value, created_on )
+  end
+
   def self.config
     return MeterCat::Config.instance
   end

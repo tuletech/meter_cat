@@ -57,7 +57,6 @@ e.g. The following command will generate data for `:my_test` with value between 
 Create or add to `config/initializers/meter_cat.rb`
 
     MeterCat.configure do |config|
-      config.noreply = 'noreply@schrodingersbox.com'
       config.to = 'ops@schrodingersbox.com'
       config.from = 'ops@schrodingersbox.com'
       config.subject = "#{Rails.env.upcase} MeterCat Report"

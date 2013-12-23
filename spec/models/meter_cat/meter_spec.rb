@@ -212,6 +212,38 @@ describe MeterCat::Meter do
   end
 
   #############################################################################
+  # Meter::set
+
+  describe '::set' do
+
+    it 'creates a new record' do
+      Meter.set( @meter.name, @meter.value, @meter.created_on).should be_true
+
+      test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
+      test.should be_present
+      test.value.should eql( @meter.value )
+    end
+
+    it 'updates an existing record' do
+      @meter.save.should be_true
+      Meter.set( @meter.name, @meter.value - 1, @meter.created_on).should be_true
+
+      test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
+      test.should be_present
+      test.value.should eql( @meter.value - 1 )
+    end
+
+    it 'returns the result of the save' do
+      Meter.should_receive( :find_by_name_and_created_on ).twice.and_return( @meter )
+
+      [ true, false ].each do |boolean|
+        @meter.should_receive( :save ).and_return( boolean )
+        Meter.set( @meter.name, @meter.value - 1, @meter.created_on).should eql( boolean )
+      end
+    end
+  end
+
+  #############################################################################
   # Meter::to_h
 
   describe '::to_h' do

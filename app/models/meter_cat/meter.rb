@@ -90,6 +90,15 @@ module MeterCat
       end
     end
 
+    # Sets or creates a new record for the name and day
+
+    def self.set( name, value = 1, created_on = Date.today )
+      meter = Meter.find_by_name_and_created_on( name, created_on )
+      meter ||= Meter.new( :name => name, :created_on => created_on )
+      meter.value = value
+      return meter.save
+    end
+
     # Returns a hash of names to dates to values
 
     def self.to_h( range, names = nil )

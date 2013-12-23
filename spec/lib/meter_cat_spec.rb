@@ -4,6 +4,13 @@ include MeterCat
 
 describe MeterCat do
 
+  before( :each ) do
+    @name = :test
+    @value = 1
+    @date = Date.parse( '2013-09-05' )
+    @cache = MeterCat::Cache.instance
+  end
+
   it 'requires the engine' do
     MeterCat::Engine.should_not be_nil
   end
@@ -16,13 +23,6 @@ describe MeterCat do
   # MeterCat::add
 
   describe '::add' do
-
-    before( :each ) do
-      @name = :test
-      @value = 1
-      @date = Date.parse( '2013-09-05' )
-      @cache = MeterCat::Cache.instance
-    end
 
     it 'adds the data to the cache' do
       @cache.should_receive( :add ).with( @name, @value, @date )
@@ -93,6 +93,30 @@ describe MeterCat do
       expected = ( Meter.names + MeterCat::config.calculator.keys ).sort
       MeterCat.names.should eql( expected )
     end
+  end
+
+  #############################################################################
+  # MeterCat::set
+
+  describe '::set' do
+
+    it 'adds the data to the cache' do
+      MeterCat::Meter.should_receive( :set ).with( @name, @value, @date )
+      MeterCat.set( @name, @value, @date )
+    end
+
+    it 'defaults date to today' do
+      Date.should_receive( :today ).and_return( @date )
+      MeterCat::Meter.should_receive( :set ).with( @name, @value, @date )
+      MeterCat.set( @name, @value )
+    end
+
+    it 'defaults value to 1' do
+      Date.should_receive( :today ).and_return( @date )
+      MeterCat::Meter.should_receive( :set ).with( @name, @value, @date )
+      MeterCat.set( @name )
+    end
+
   end
 
 end
