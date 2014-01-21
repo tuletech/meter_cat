@@ -134,7 +134,7 @@ describe MeterCat::Cache do
     end
 
     it 'adds the cached meter to the database' do
-      @cache[ @name ].should_receive( :add )
+      @cache[ @name ].should_receive( :add ).and_return( true )
       @cache.flush( @name )
     end
 
@@ -162,7 +162,7 @@ describe MeterCat::Cache do
     end
 
     it 'flushes all the cached meters to db' do
-      @cache.values.each { |meter| meter.should_receive( :add ) }
+      @cache.values.each { |meter| meter.should_receive( :add ).and_return( true ) }
       @cache.flush_all
     end
 

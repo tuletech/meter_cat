@@ -32,7 +32,8 @@ module MeterCat
     # Returns the result of the ActiveRecord save operation.
 
     def add
-      meter = Meter.find_by_name_and_created_on( name, created_on )
+      meter = nil
+      Meter.uncached { meter = Meter.find_by_name_and_created_on( name, created_on )}
       meter ||= Meter.new( :name => name, :created_on => created_on )
       meter.value += value
       return meter.save

@@ -33,9 +33,21 @@ The easiest way is to call `MeterCat.add`.
 
         MeterCat.add( :any_name_you_like )
 
-You can also optionally pass a value. It defaults to 1.
+You can also optionally pass a value and date.
 
-        MeterCat.add( :donuts, 12 )
+        MeterCat.add( value = 1, created_on = Date.today )
+
+### Set A Meter
+
+The easiest way is to call `MeterCat.set`.
+
+        MeterCat.set( :any_name_you_like )
+
+You can also optionally pass a value and date.
+
+        MeterCat.set( value = 1, created_on = Date.today )
+
+This is useful where you want to record a single value for the day, such as from a daily cron job.
 
 ### Generate Development Data
 
@@ -82,7 +94,7 @@ You can email a meter report in code:
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
  * [FactoryGirl](https://github.com/thoughtbot/factory_girl)
 
-##TODO
+## TODO
 
  * Action to bump meter and return an image, default to 1px transparent
  * Rake task to bump a meter with args

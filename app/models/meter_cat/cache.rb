@@ -40,7 +40,7 @@ module MeterCat
 
     def flush( name )
       return unless meter = delete( name )
-      meter.add
+      meter.add_with_retry
     end
 
     # Flushes all keys
