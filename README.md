@@ -84,6 +84,26 @@ You can email a meter report in code:
 
     MeterCat.mail
 
+### Require authentication
+
+Create or add to `config/initializers/meter_cat.rb`
+
+    MeterCat.configure do |config|
+      config.authenticate_with do
+        warden.authenticate! scope: :user
+      end
+    end
+
+### Require authorization
+
+Create or add to `config/initializers/meter_cat.rb`
+
+    MeterCat.configure do |config|
+      config.authorize_with do
+        redirect_to main_app.root_path unless current_user.try(:admin?)
+      end
+    end
+
 ## Reference
 
  * [Getting Started with Engines](http://edgeguides.rubyonrails.org/engines.html)

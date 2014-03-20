@@ -38,6 +38,12 @@ describe MeterCat::MetersController do
       expect( assigns( :all_names ) ).to be_present
     end
 
+    it 'uses the configured before authentication filter' do
+      expect( @controller ).to receive( :instance_eval ).with( &MeterCat.config.authenticate_with )
+      expect( @controller ).to receive( :instance_eval ).with( &MeterCat.config.authorize_with )
+      get :index
+    end
+
     context 'formatting CSV' do
 
       it 'converts meters to CSV' do

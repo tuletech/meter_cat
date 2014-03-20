@@ -5,6 +5,9 @@ module MeterCat
   class Config
     include Singleton
 
+    DEFAULT_AUTHENTICATION = proc {}
+    DEFAULT_AUTHORIZE = proc {}
+
     attr_accessor :calculator, :expiration, :retry_attempts, :retry_delay
     attr_accessor :from, :mail_days, :mail_names, :subject, :to
 
@@ -25,6 +28,16 @@ module MeterCat
 
     def sum( name, values )
       @calculator.sum( name, values )
+    end
+
+    def authenticate_with(&blk)
+      @authenticate = blk if blk
+      @authenticate || DEFAULT_AUTHENTICATION
+    end
+
+    def authorize_with(&block)
+      @authorize = block if block
+      @authorize || DEFAULT_AUTHORIZE
     end
 
   end
