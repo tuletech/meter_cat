@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905081928) do
+ActiveRecord::Schema.define(version: 20130904180803) do
 
   create_table "meter_cat_meters", force: true do |t|
     t.string   "name",         limit: 64,             null: false

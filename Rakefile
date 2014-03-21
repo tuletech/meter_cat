@@ -19,4 +19,5 @@ load 'rails/tasks/engine.rake'
 
 Bundler::GemHelper.install_tasks
 
+load 'tasks/meter_cat.rake'
 load 'tasks/spec_cat.rake'
