@@ -172,9 +172,6 @@ Create or add to `config/initializers/meter_cat.rb`
 
 ## TODO
 
- * Badge it up - see split cat
-
- * Publish as gem
-
  * Action to bump meter and return an image, default to 1px transparent
  * Rake task to bump a meter with args
+ * Group report table and descriptions by prefixes ( e.g. foo_a and foo_b = a + b in a foo group )
