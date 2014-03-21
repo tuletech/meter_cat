@@ -59,6 +59,14 @@ rather than run a bunch of count queries.
         config.subject = "#{Rails.env.upcase} MeterCat Report"
         config.mail_days = 7
 
+        config.authenticate_with do
+          warden.authenticate! scope: :user
+        end
+
+        config.authorize_with do
+          redirect_to main_app.root_path unless current_user.try(:admin?)
+        end
+
       end
 
 ## How To
@@ -71,7 +79,7 @@ The easiest way is to call `MeterCat.add`.
 
 You can also optionally pass a value and date.
 
-        MeterCat.add( value = 1, created_on = Date.today )
+        MeterCat.add( :any_name_you_like, value = 1, created_on = Date.today )
 
 ### Set A Meter
 
@@ -81,7 +89,7 @@ The easiest way is to call `MeterCat.set`.
 
 You can also optionally pass a value and date.
 
-        MeterCat.set( value = 1, created_on = Date.today )
+        MeterCat.set( :any_name_you_like, value = 1, created_on = Date.today )
 
 This is useful where you want to record a single value for the day, such as from a daily cron job.
 
