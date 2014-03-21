@@ -162,6 +162,7 @@ Create or add to `config/initializers/meter_cat.rb`
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
  * [FactoryGirl](https://github.com/thoughtbot/factory_girl)
  * [Add Achievement Badges to Your Gem README](http://elgalu.github.io/2013/add-achievement-badges-to-your-gem-readme/)
+ * [Publishing your gem](http://guides.rubygems.org/publishing/)
 
 ## TODO
 
