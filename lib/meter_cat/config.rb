@@ -5,11 +5,11 @@ module MeterCat
   class Config
     include Singleton
 
-    DEFAULT_AUTHENTICATION = proc {}
-    DEFAULT_AUTHORIZE = proc {}
+    NIL_PROC = proc {}
 
     attr_accessor :calculator, :expiration, :retry_attempts, :retry_delay
     attr_accessor :from, :mail_days, :mail_names, :subject, :to
+    attr_accessor :layout
 
     def initialize
       @calculator = MeterCat::Calculator.new
@@ -32,12 +32,12 @@ module MeterCat
 
     def authenticate_with(&blk)
       @authenticate = blk if blk
-      @authenticate || DEFAULT_AUTHENTICATION
+      @authenticate || NIL_PROC
     end
 
     def authorize_with(&block)
       @authorize = block if block
-      @authorize || DEFAULT_AUTHORIZE
+      @authorize || NIL_PROC
     end
 
   end

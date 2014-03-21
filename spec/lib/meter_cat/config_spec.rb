@@ -19,12 +19,6 @@ describe MeterCat::Config do
       config.calculator.should_not be_nil
     end
 
-    it 'has a #mail_days accessor' do
-      config.mail_days.should_not be_nil
-      config.mail_days = config.mail_days
-      config.mail_days.should eql( config.mail_days )
-    end
-
     it 'has an #expiration accessor' do
       config.expiration = Meter::DEFAULT_EXPIRATION
       config.expiration.should eql( Meter::DEFAULT_EXPIRATION )
@@ -34,6 +28,16 @@ describe MeterCat::Config do
       config.from.should_not be_nil
       config.from = config.from
       config.from.should eql( config.from )
+    end
+
+    it 'has an #layout accessor' do
+      config.layout.should_not be_nil
+    end
+
+    it 'has a #mail_days accessor' do
+      config.mail_days.should_not be_nil
+      config.mail_days = config.mail_days
+      config.mail_days.should eql( config.mail_days )
     end
 
     it 'has a #retry_attempts accessor' do

@@ -44,6 +44,11 @@ describe MeterCat::MetersController do
       get :index
     end
 
+    it 'renders with the configured layout' do
+      get :index
+      expect( response ).to render_template( MeterCat.config.layout )
+    end
+
     context 'formatting CSV' do
 
       it 'converts meters to CSV' do

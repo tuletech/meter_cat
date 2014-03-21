@@ -2,6 +2,8 @@ module MeterCat
 
   class MetersController < ApplicationController
 
+    layout :set_layout
+
     before_filter :_authenticate!
     before_filter :_authorize!
 
@@ -34,6 +36,10 @@ module MeterCat
 
     private
 
+    def set_layout
+      return MeterCat.config.layout
+    end
+
     def _authenticate!
       instance_eval(&MeterCat.config.authenticate_with)
     end
@@ -41,6 +47,8 @@ module MeterCat
     def _authorize!
       instance_eval(&MeterCat.config.authorize_with)
     end
+
+
 
   end
 

@@ -1,6 +1,16 @@
 # schrodingersbox/meter_cat README
 
-This engine makes monitoring the usage history of your Rails environment easier.
+This Rails engine makes monitoring the usage history of your Rails environment easier.
+It provides meters, similar to the odometer in a car, which can be incremented
+when significant actions happen in your app, and are recorded on a daily basis.
+
+Meters are managed in RAM and periodically flushed to DB after a configurable amount of time,
+when the calendar day rolls over, or when the process exits.
+
+Some examples of useful meters would be number of users created, number of emails sent, or
+other events particular to your application.  Even in cases where the equivalent value could be
+determined with a count query, it can still be more efficient to look up a set of meter values,
+rather than run a bunch of count queries.
 
 ## Getting Started
 
@@ -25,6 +35,26 @@ This engine makes monitoring the usage history of your Rails environment easier.
 
 6.  Visit http://yourapp/meter_cat in a browser for an HTML meter report
 
+## Configuration
+
+  All configuration should go in `config/initializers/meter_cat.rb`.
+
+      MeterCat.configure do |config|
+
+        config.layout = 'meters'
+        config.expiration = 60
+
+        config.ratio( :failed_to_create_ratio, :login_failed, :user_created )
+        config.percentage( :failed_to_create_percentage, :login_failed, :user_created )
+        config.sum( :failed_plus_create, [ :login_failed, :user_created ] )
+
+        config.to = 'ops@schrodingersbox.com'
+        config.from = 'ops@schrodingersbox.com'
+        config.subject = "#{Rails.env.upcase} MeterCat Report"
+        config.mail_days = 7
+
+      end
+
 ## How To
 
 ### Increment A Meter
@@ -48,6 +78,16 @@ You can also optionally pass a value and date.
         MeterCat.set( value = 1, created_on = Date.today )
 
 This is useful where you want to record a single value for the day, such as from a daily cron job.
+
+### Add Calculated Values
+
+Calculated values (ratios, percentages, and sums) can be defined in `config/initializers/meter_cat.rb`
+
+      MeterCat.configure do |config|
+        config.ratio( :failed_to_create_ratio, :login_failed, :user_created )
+        config.percentage( :failed_to_create_percentage, :login_failed, :user_created )
+        config.sum( :failed_plus_create, [ :login_failed, :user_created ] )
+      end
 
 ### Generate Development Data
 
@@ -104,6 +144,14 @@ Create or add to `config/initializers/meter_cat.rb`
       end
     end
 
+### Apply a custom layout
+
+Create or add to `config/initializers/meter_cat.rb`
+
+    MeterCat.configure do |config|
+      config.layout = 'admin'
+    end
+
 ## Reference
 
  * [Getting Started with Engines](http://edgeguides.rubyonrails.org/engines.html)
@@ -113,9 +161,13 @@ Create or add to `config/initializers/meter_cat.rb`
  * [Clarifying the Roles of the .gemspec and Gemfile](http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/)
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
  * [FactoryGirl](https://github.com/thoughtbot/factory_girl)
+ * [Add Achievement Badges to Your Gem README](http://elgalu.github.io/2013/add-achievement-badges-to-your-gem-readme/)
 
 ## TODO
 
+ * Badge it up - see split cat
+
+ * Publish as gem
+
  * Action to bump meter and return an image, default to 1px transparent
  * Rake task to bump a meter with args
- * Publish as gem
