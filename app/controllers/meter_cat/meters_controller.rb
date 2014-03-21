@@ -2,6 +2,9 @@ module MeterCat
 
   class MetersController < ApplicationController
 
+    before_filter :_authenticate!
+    before_filter :_authorize!
+
     DEFAULT_DAYS = 7
 
     def index
@@ -27,6 +30,16 @@ module MeterCat
           render :text => Meter.to_csv( @range, @names ), :content_type => 'text/csv'
         end
       end
+    end
+
+    private
+
+    def _authenticate!
+      instance_eval(&MeterCat.config.authenticate_with)
+    end
+
+    def _authorize!
+      instance_eval(&MeterCat.config.authorize_with)
     end
 
   end
