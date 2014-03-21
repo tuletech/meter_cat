@@ -1,6 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/meter_cat.png)](http://badge.fury.io/rb/meter_cat)
 [![Build Status](https://travis-ci.org/schrodingersbox/meter_cat.svg?branch=master)](https://travis-ci.org/schrodingersbox/meter_cat)
 [![Dependency Status](https://gemnasium.com/schrodingersbox/meter_cat.png)](https://gemnasium.com/schrodingersbox/meter_cat)
+[![Code Climate](https://codeclimate.com/github/schrodingersbox/meter_cat.png)](https://codeclimate.com/github/schrodingersbox/meter_cat)
 [![Coverage Status](https://coveralls.io/repos/schrodingersbox/meter_cat/badge.png)](https://coveralls.io/r/schrodingersbox/meter_cat)
 
 
