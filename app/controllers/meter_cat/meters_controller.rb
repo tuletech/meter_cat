@@ -41,14 +41,12 @@ module MeterCat
     end
 
     def _authenticate!
-      instance_eval(&MeterCat.config.authenticate_with)
+      instance_eval( &MeterCat.config.authenticate_with )
     end
 
     def _authorize!
-      instance_eval(&MeterCat.config.authorize_with)
+      instance_eval( &MeterCat.config.authorize_with )
     end
-
-
 
   end
 

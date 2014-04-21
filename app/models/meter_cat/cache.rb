@@ -5,7 +5,9 @@ module MeterCat
     include Singleton
 
     def initialize
-      at_exit { MeterCat::Cache.instance.flush_all }
+      unless Rails.env.test?
+        at_exit { MeterCat::Cache.instance.flush_all }
+      end
     end
 
     # Adds the given value to the hash

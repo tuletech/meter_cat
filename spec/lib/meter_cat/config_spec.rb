@@ -65,7 +65,7 @@ describe MeterCat::Config do
   end
 
   #############################################################################
-  # Config#initialize
+  # initialize
 
   describe '#initialize' do
 
