@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe 'meter_cat/meter_mailer/report.html.erb' do
@@ -15,5 +13,4 @@ describe 'meter_cat/meter_mailer/report.html.erb' do
     assign( :range, @range )
     render
   end
-
 end

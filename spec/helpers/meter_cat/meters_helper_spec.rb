@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe MeterCat::MetersHelper do
@@ -24,7 +22,6 @@ describe MeterCat::MetersHelper do
     it 'generates a meter description' do
       helper.meter_description( 'descriptions' ).should eql_file( 'spec/data/meter_description.html' )
     end
-
   end
 
   describe '#meter_descriptions' do
@@ -32,7 +29,6 @@ describe MeterCat::MetersHelper do
     it 'generates a list of meter descriptions' do
       helper.meter_descriptions( @meters ).should eql_file( 'spec/data/meter_descriptions.html' )
     end
-
   end
 
   describe '#meter_form' do
@@ -41,7 +37,6 @@ describe MeterCat::MetersHelper do
       helper.should_receive( :render )
       helper.meter_form( @start, 5, nil, Meter.names )
     end
-
   end
 
   describe '#meter_header' do
@@ -49,7 +44,6 @@ describe MeterCat::MetersHelper do
     it 'generates a meter table header' do
       helper.meter_header( @range ).should eql_file( 'spec/data/meter_header.html' )
     end
-
   end
 
   describe '#meter_row' do
@@ -57,7 +51,6 @@ describe MeterCat::MetersHelper do
     it 'generates a meter table row' do
       helper.meter_row( @meters, @range, @meters.keys.sort.first ).should eql_file( 'spec/data/meter_row.html' )
     end
-
   end
 
   describe '#meter_table' do
@@ -65,7 +58,5 @@ describe MeterCat::MetersHelper do
     it 'generates a meter table' do
       helper.meter_table( @meters, @range ).should eql_file( 'spec/data/meter_table.html' )
     end
-
   end
-
 end

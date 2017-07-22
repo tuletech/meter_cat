@@ -69,7 +69,7 @@ module MeterCat
     # Returns all unique meter names sorted
 
     def self.names
-      Meter.uniq.pluck( :name ).sort.map { |name| name.to_sym }
+      Meter.all.uniq.pluck( :name ).sort.map { |name| name.to_sym }
     end
 
     # Generates a random sequence for a meter given the following args:

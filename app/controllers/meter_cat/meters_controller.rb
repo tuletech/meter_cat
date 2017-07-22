@@ -4,8 +4,8 @@ module MeterCat
 
     layout :set_layout
 
-    before_filter :_authenticate!
-    before_filter :_authorize!
+    before_action :_authenticate!
+    before_action :_authorize!
 
     DEFAULT_DAYS = 7
 
@@ -29,7 +29,7 @@ module MeterCat
         end
         format.csv do
           MeterCat.add( :meter_cat_csv )
-          render :text => Meter.to_csv( @range, @names ), :content_type => 'text/csv'
+          render plain: Meter.to_csv( @range, @names ), content_type: 'text/csv'
         end
       end
     end
@@ -47,7 +47,5 @@ module MeterCat
     def _authorize!
       instance_eval( &MeterCat.config.authorize_with )
     end
-
   end
-
 end

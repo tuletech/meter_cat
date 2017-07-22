@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe MeterCat::Calculator do
@@ -77,7 +75,6 @@ describe MeterCat::Calculator do
       @to_h[ :test_percentage ].should be_present
       @to_h[ :test_sum ].should be_present
     end
-
   end
 
   #############################################################################
@@ -101,7 +98,6 @@ describe MeterCat::Calculator do
       @calculator.dependencies( names )
       names.should eql( [ :test_ratio, @user_created_1.name.to_sym, @login_failed_3.name.to_sym ] )
     end
-
   end
 
   #############################################################################
@@ -136,7 +132,6 @@ describe MeterCat::Calculator do
     it 'returns its dependencies' do
       @divide.dependencies.should eql( [ @numerator, @denominator ] )
     end
-
   end
 
   #############################################################################
@@ -161,7 +156,5 @@ describe MeterCat::Calculator do
     it 'returns its dependencies' do
       @sum.dependencies.should eql( @values )
     end
-
   end
-
 end

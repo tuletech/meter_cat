@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe MeterCat::Config do
@@ -61,7 +59,6 @@ describe MeterCat::Config do
       config.to = config.to
       config.to.should eql( config.to )
     end
-
   end
 
   #############################################################################
@@ -78,7 +75,6 @@ describe MeterCat::Config do
       config.retry_attempts.should eql( Meter::DEFAULT_RETRY_ATTEMPTS )
       config.retry_delay.should eql( Meter::DEFAULT_RETRY_DELAY )
     end
-
   end
 
   describe 'calculator' do
@@ -102,7 +98,5 @@ describe MeterCat::Config do
       config.calculator.should_receive( :sum ).with( :failed_plus_create, values )
       config.sum( :failed_plus_create, values )
     end
-
   end
-
 end

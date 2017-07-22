@@ -4,10 +4,12 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+)
 
 SimpleCov.start 'rails' do
   add_filter '/vendor/'
@@ -16,7 +18,8 @@ end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'rails-controller-testing'
+require 'rspec-html-matchers'
 require 'factory_girl_rails'
 require 'spec_cat'
 
@@ -37,6 +40,7 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
+  config.infer_spec_type_from_file_location!
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -44,6 +48,13 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, type: type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+    config.include ::Rails::Controller::Testing::Integration, type: type
+  end
+
+  config.include RSpecHtmlMatchers
 end
 
 def setup_meters

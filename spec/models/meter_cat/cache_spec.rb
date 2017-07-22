@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MeterCat::Cache do
 
   before( :each ) do
@@ -33,7 +31,6 @@ describe MeterCat::Cache do
         @cache.should_receive( :cache ).with( @name, @value, @date )
         @cache.add( @name, @value, @date )
       end
-
     end
 
     context 'cache hit' do
@@ -53,7 +50,6 @@ describe MeterCat::Cache do
           @cache.should_receive( :cache ).with( @name, @value, @date )
           @cache.add( @name, @value, @date )
         end
-
       end
 
       context 'for same day' do
@@ -73,7 +69,7 @@ describe MeterCat::Cache do
 
             meter = @cache[ @name ]
             meter.should be_present
-            meter.name.should eql( @name )
+            meter.name.should eql( @name.to_s ) # TODO: to_s added during Rails 5 upgrade.  Confirm it's OK
             meter.value.should eql( @value * 2 )
             meter.created_on.should eql( @date )
           end
@@ -90,11 +86,8 @@ describe MeterCat::Cache do
           @cache.should_receive( :flush ).with( @name )
           @cache.add( @name, @value, @date )
         end
-
       end
-
     end
-
   end
 
   #############################################################################
@@ -111,12 +104,11 @@ describe MeterCat::Cache do
 
       meter = @cache[ @name ]
       meter.should be_present
-      meter.name.should eql( @name )
+      meter.name.should eql( @name.to_s ) # TODO: to_s added during Rails 5 upgrade.  Confirm it's OK
       meter.value.should eql( @value )
       meter.created_on.should eql( @date )
       meter.created_at.should eql( now )
     end
-
   end
 
   #############################################################################
@@ -143,7 +135,6 @@ describe MeterCat::Cache do
       @cache[ @missing_name ].should be_nil
       @cache.flush( @missing_name )
     end
-
   end
 
   #############################################################################
@@ -165,7 +156,5 @@ describe MeterCat::Cache do
       @cache.flush_all
       @cache.should be_empty
     end
-
   end
-
 end

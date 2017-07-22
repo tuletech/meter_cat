@@ -166,6 +166,11 @@ Create or add to `config/initializers/meter_cat.rb`
       config.layout = 'admin'
     end
 
+### Get Started Developing
+
+1.  `cp spec/dummy/config/passwords.yml.sample spec/dummy/config/passwords.yml`    
+2.  `rake app:db:create app:db:migrate app:db:test:prepare`
+
 ## Reference
 
  * [Getting Started with Engines](http://edgeguides.rubyonrails.org/engines.html)
@@ -178,8 +183,8 @@ Create or add to `config/initializers/meter_cat.rb`
  * [Add Achievement Badges to Your Gem README](http://elgalu.github.io/2013/add-achievement-badges-to-your-gem-readme/)
  * [Publishing your gem](http://guides.rubygems.org/publishing/)
 
-## TODO
+## History
 
- * Action to bump meter and return an image, default to 1px transparent
- * Rake task to bump a meter with args
- * Group report table and descriptions by prefixes ( e.g. foo_a and foo_b = a + b in a foo group )
+ * Version 0.0.8 = Rails 4 compatible
+ * Version 5.0.0 = Rails 5 compatible
+

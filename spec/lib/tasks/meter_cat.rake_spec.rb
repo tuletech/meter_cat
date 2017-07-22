@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rake'
 
 describe 'meter_cat rake tasks' do
@@ -42,7 +41,5 @@ describe 'meter_cat rake tasks' do
       end
       @rake[ 'meter_cat:random' ].invoke( @name, @min , @max, @days )
     end
-
   end
-
 end

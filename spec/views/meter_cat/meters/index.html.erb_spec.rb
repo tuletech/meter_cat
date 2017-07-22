@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe 'meter_cat/meters/index.html.erb' do
@@ -17,7 +15,7 @@ describe 'meter_cat/meters/index.html.erb' do
 
   it 'renders a title' do
     render
-    rendered.should have_selector( :h1, :content => t( :title, :scope => :meter_cat ) )
+    rendered.should have_tag( :h1, :text => t( :title, :scope => :meter_cat ) )
   end
 
   it 'renders the meter table'  do
@@ -27,12 +25,11 @@ describe 'meter_cat/meters/index.html.erb' do
 
   it 'renders a description title' do
     render
-    rendered.should have_selector( :h2, :content => t( :descriptions, :scope => :meter_cat ) )
+    rendered.should have_tag( :h2, :text => t( :descriptions, :scope => :meter_cat ) )
   end
 
   it 'renders the meter description'  do
     view.should_receive( :meter_descriptions ).with( @meters )
     render
   end
-
 end

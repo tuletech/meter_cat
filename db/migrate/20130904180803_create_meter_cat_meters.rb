@@ -1,4 +1,4 @@
-class CreateMeterCatMeters < ActiveRecord::Migration
+class CreateMeterCatMeters < ActiveRecord::Migration[4.2]
   def change
     create_table :meter_cat_meters do |t|
       t.string :name, :limit => 64, :null => false

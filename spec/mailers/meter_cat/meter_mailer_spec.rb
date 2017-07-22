@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MeterCat::MeterMailer do
 
   it 'adds MeterCat::MeterHelper as a template helper' do
@@ -33,6 +31,5 @@ describe MeterCat::MeterMailer do
     end
 
   end
-
 end
 

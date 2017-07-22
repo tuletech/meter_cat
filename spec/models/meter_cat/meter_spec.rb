@@ -1,11 +1,9 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe MeterCat::Meter do
 
   before( :each ) do
-    Kernel.stub( :sleep )
+    allow(Kernel).to receive(:sleep)
 
     @meter = Meter.new( :name => 'test', :created_on => '2013-09-04', :value => 727 )
   end
@@ -28,7 +26,6 @@ describe MeterCat::Meter do
     it 'defines a default delay between retries' do
       Meter::DEFAULT_RETRY_DELAY.should be( 1 )
     end
-
   end
 
   it 'validates the presence of name' do
@@ -45,7 +42,7 @@ describe MeterCat::Meter do
   describe '#add' do
 
     it 'creates a new record' do
-      @meter.add.should be_true
+      expect(@meter.add).to be(true)
 
       test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
       test.should be_present
@@ -53,8 +50,8 @@ describe MeterCat::Meter do
     end
 
     it 'increments an existing record' do
-      @meter.save.should be_true
-      @meter.add.should be_true
+      expect(@meter.save).to be(true)
+      expect(@meter.add).to be(true)
 
       test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
       test.should be_present
@@ -72,7 +69,7 @@ describe MeterCat::Meter do
 
     it 'does not catch ActiveRecord::StaleObjectError exceptions' do
       @meter.lock_version = 1
-      @meter.save.should be_true
+      expect(@meter.save).to be(true)
 
       Meter.should_receive( :find_by_name_and_created_on ).and_return( @meter )
       @meter.lock_version = 0
@@ -80,12 +77,11 @@ describe MeterCat::Meter do
     end
 
     it 'does not catch ActiveRecord::RecordNotUnique exceptions' do
-      @meter.save.should be_true
+      expect(@meter.save).to be(true)
       Meter.should_receive( :find_by_name_and_created_on ).and_return( nil )
 
       expect { @meter.add }.to raise_error( ActiveRecord::RecordNotUnique )
     end
-
   end
 
   #############################################################################
@@ -99,44 +95,43 @@ describe MeterCat::Meter do
 
     it 'calls #add' do
       @meter.should_receive( :add ).once.and_return( true )
-      @meter.add_with_retry.should be_true
+      expect(@meter.add_with_retry).to be(true)
     end
 
     it 'returns true if it succeeds' do
-      @meter.add_with_retry.should be_true
+      expect(@meter.add_with_retry).to be(true)
     end
 
     it 'catches ActiveRecord::StaleObjectError exceptions' do
       @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_raise( ActiveRecord::StaleObjectError.new( nil, nil ) )
-      @meter.add_with_retry.should be_false
+      expect(@meter.add_with_retry).to be(false)
     end
 
     it 'catches ActiveRecord::RecordNotUnique exceptions' do
-      @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_raise( ActiveRecord::RecordNotUnique.new( nil, nil ) )
-      @meter.add_with_retry.should be_false
+      @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_raise( ActiveRecord::RecordNotUnique.new )
+      expect(@meter.add_with_retry).to be(false)
     end
 
     it 'retries up to Meter::MAX_ADD_ATTEMPTS times' do
       @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_return( false )
-      @meter.add_with_retry.should be_false
+      expect(@meter.add_with_retry).to be(false)
     end
 
     it 'sleeps on each retry' do
       Kernel.should_receive( :sleep ).exactly( @retry_attempts ).times
       @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_return( false )
-      @meter.add_with_retry.should be_false
+      expect(@meter.add_with_retry).to be(false)
     end
 
     it 'returns false if it fails' do
       @meter.should_receive( :add ).exactly( @retry_attempts ).times.and_return( false )
-      @meter.add_with_retry.should be_false
+      expect(@meter.add_with_retry).to be(false)
     end
 
     it 'succeeds if a retry works' do
       @meter.should_receive( :add ).twice.and_return( false, true )
-      @meter.add_with_retry.should be_true
+      expect(@meter.add_with_retry).to be(true)
     end
-
   end
 
   #############################################################################
@@ -152,14 +147,13 @@ describe MeterCat::Meter do
 
     it 'returns false if age is less than expiration' do
       @meter.created_at = @now + @expiration
-      @meter.expired?.should be_false
+      expect(@meter.expired?).to be(false)
     end
 
     it 'returns true if age is older than expiration' do
       @meter.created_at = @now - @expiration * 2
-      @meter.expired?.should be_true
+      expect(@meter.expired?).to be(true)
     end
-
   end
 
   #############################################################################
@@ -168,10 +162,9 @@ describe MeterCat::Meter do
   describe '::names' do
 
     it 'returns all distinct meter names from the db' do
-      expected = Meter.uniq.pluck( :name ).sort.map { |name| name.to_sym }
+      expected = Meter.all.uniq.pluck( :name ).sort.map { |name| name.to_sym }
       Meter.names.should eql( expected )
     end
-
   end
 
   #############################################################################
@@ -208,7 +201,6 @@ describe MeterCat::Meter do
       Meter.random( @args )
       Meter.random( @args )
     end
-
   end
 
   #############################################################################
@@ -217,7 +209,7 @@ describe MeterCat::Meter do
   describe '::set' do
 
     it 'creates a new record' do
-      Meter.set( @meter.name, @meter.value, @meter.created_on).should be_true
+      expect(Meter.set( @meter.name, @meter.value, @meter.created_on)).to be(true)
 
       test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
       test.should be_present
@@ -225,8 +217,8 @@ describe MeterCat::Meter do
     end
 
     it 'updates an existing record' do
-      @meter.save.should be_true
-      Meter.set( @meter.name, @meter.value - 1, @meter.created_on).should be_true
+      expect(@meter.save).to be(true)
+      expect(Meter.set( @meter.name, @meter.value - 1, @meter.created_on)).to be(true)
 
       test = Meter.find_by_name_and_created_on( @meter.name, @meter.created_on )
       test.should be_present
@@ -292,7 +284,6 @@ describe MeterCat::Meter do
       @to_h = Meter.to_h(( today - days ) .. today )
       @range
     end
-
   end
 
   #############################################################################
@@ -318,8 +309,6 @@ describe MeterCat::Meter do
     it 'includes a row for each meter' do
       @csv.size.should eql( Meter.where( @conditions ).count + 1 )
     end
-
   end
-
 end
 

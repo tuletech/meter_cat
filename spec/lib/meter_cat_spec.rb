@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include MeterCat
 
 describe MeterCat do
@@ -40,7 +38,6 @@ describe MeterCat do
       @cache.should_receive( :add ).with( @name, @value, @date )
       MeterCat.add( @name )
     end
-
   end
 
   #############################################################################
@@ -51,7 +48,6 @@ describe MeterCat do
     it 'returns the configuration' do
       MeterCat.config.should be_an_instance_of( MeterCat::Config )
     end
-
   end
 
   #############################################################################
@@ -62,7 +58,6 @@ describe MeterCat do
     it 'yields the configuration' do
       MeterCat.configure { |config| config.should be_an_instance_of( MeterCat::Config ) }
     end
-
   end
 
   #############################################################################
@@ -81,7 +76,6 @@ describe MeterCat do
       MeterCat.should_receive( :add ).with( :meter_cat_mail )
       MeterCat.mail
     end
-
   end
 
   #############################################################################
@@ -116,7 +110,5 @@ describe MeterCat do
       MeterCat::Meter.should_receive( :set ).with( @name, @value, @date )
       MeterCat.set( @name )
     end
-
   end
-
 end

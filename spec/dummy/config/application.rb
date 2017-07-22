@@ -9,6 +9,7 @@ require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
 require "meter_cat"
+require "status_cat"
 
 module Dummy
   class Application < Rails::Application

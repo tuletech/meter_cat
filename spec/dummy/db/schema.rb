@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,14 +12,13 @@
 
 ActiveRecord::Schema.define(version: 20130904180803) do
 
-  create_table "meter_cat_meters", force: true do |t|
-    t.string   "name",         limit: 64,             null: false
-    t.date     "created_on"
-    t.integer  "value",                   default: 0
-    t.integer  "lock_version",            default: 0
+  create_table "meter_cat_meters", force: :cascade do |t|
+    t.string "name", limit: 64, null: false
+    t.date "created_on"
+    t.integer "value", default: 0
+    t.integer "lock_version", default: 0
     t.datetime "created_at"
+    t.index ["created_on", "name"], name: "index_meter_cat_meters_on_created_on_and_name", unique: true
   end
-
-  add_index "meter_cat_meters", ["created_on", "name"], name: "index_meter_cat_meters_on_created_on_and_name", unique: true
 
 end
