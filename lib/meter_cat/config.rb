@@ -18,16 +18,16 @@ module MeterCat
       @retry_delay = Meter::DEFAULT_RETRY_DELAY
     end
 
-    def ratio( name, numerator, denominator )
-      @calculator.ratio( name, numerator, denominator )
+    def ratio(name, numerator, denominator)
+      @calculator.ratio(name, numerator, denominator)
     end
 
-    def percentage( name, numerator, denominator )
-      @calculator.percentage( name, numerator, denominator )
+    def percentage(name, numerator, denominator)
+      @calculator.percentage(name, numerator, denominator)
     end
 
-    def sum( name, values )
-      @calculator.sum( name, values )
+    def sum(name, values)
+      @calculator.sum(name, values)
     end
 
     def authenticate_with(&blk)
@@ -41,5 +41,4 @@ module MeterCat
     end
 
   end
-
 end

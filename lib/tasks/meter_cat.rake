@@ -1,13 +1,13 @@
 namespace :meter_cat do
 
   desc 'Email meter report, as configured'
-  task :mail => :environment do
+  task mail: :environment do
     MeterCat.mail
   end
 
   desc 'Generate a random meter sequence given arguments: [name, min, max, days]'
-  task :random, [ :name, :min, :max, :days ] => :environment do |t,args|
-    MeterCat::Meter.random( args )
+  task :random, [:name, :min, :max, :days] => :environment do |_t, args|
+    MeterCat::Meter.random(args)
   end
 
 end

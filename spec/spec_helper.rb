@@ -27,7 +27,7 @@ ENGINE_ROOT = File.join(File.dirname(__FILE__), '..')
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[File.join(ENGINE_ROOT, 'spec/support/**/*.rb')].each {|f| require f }
+Dir[File.join(ENGINE_ROOT, 'spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
 
@@ -59,16 +59,16 @@ end
 
 def setup_meters
   MeterCat::Meter.delete_all
-  @user_created_1 = FactoryGirl.create( :user_created_1 )
-  @user_created_2 = FactoryGirl.create( :user_created_2 )
-  @user_created_3 = FactoryGirl.create( :user_created_3 )
-  @login_failed_3 = FactoryGirl.create( :login_failed_3 )
+  @user_created_1 = FactoryGirl.create(:user_created_1)
+  @user_created_2 = FactoryGirl.create(:user_created_2)
+  @user_created_3 = FactoryGirl.create(:user_created_3)
+  @login_failed_3 = FactoryGirl.create(:login_failed_3)
 
   @start = @user_created_1.created_on
   @stop = @user_created_3.created_on
-  @range = @start .. @stop
+  @range = @start..@stop
 
-  @names = [ @user_created_1.name.to_sym ]
+  @names = [@user_created_1.name.to_sym]
 
-  @conditions = { :created_on => @range, :name => @names }
+  @conditions = { created_on: @range, name: @names }
 end

@@ -1,0 +1,72 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'spec/dummy/Rakefile'
+    - 'spec/dummy/config/**/*'
+    - 'spec/dummy/bin/*'
+    - 'spec/dummy/db/**/*'
+
+Metrics/AbcSize:
+  Max: 20 # Default 15
+
+Metrics/CyclomaticComplexity:
+  Max: 10 # Default 6
+
+Metrics/LineLength:
+  Max: 140 # Default 80
+
+Metrics/MethodLength:
+  Max: 20 # Default 10
+
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/VariableNumber:
+  EnforcedStyle: snake_case
+
+# Barfing on spec blocks
+
+Metrics/BlockLength:
+  Enabled: false
+
+# Prefer explicit returns
+
+Style/RedundantReturn:
+  Enabled: false
+
+# Prefer lighter and fluffier code
+
+Layout/CaseIndentation:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false

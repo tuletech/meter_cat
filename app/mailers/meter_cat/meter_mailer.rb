@@ -1,12 +1,13 @@
-class MeterCat::MeterMailer <  ActionMailer::Base
-  helper MeterCat::MetersHelper
+module MeterCat
+  class MeterMailer < ActionMailer::Base
 
-  def report
-    config = MeterCat.config
-    @range = ( Date.yesterday - config.mail_days ) .. Date.yesterday
-    @meters = MeterCat::Meter.to_h( @range, config.mail_names )
+    helper MeterCat::MetersHelper
 
-    mail( :to => config.to, :from => config.from, :subject => config.subject )
+    def report
+      config = MeterCat.config
+      @range = (Date.yesterday - config.mail_days)..Date.yesterday
+      @meters = MeterCat::Meter.to_h(@range, config.mail_names)
+      mail(to: config.to, from: config.from, subject: config.subject)
+    end
   end
-
 end

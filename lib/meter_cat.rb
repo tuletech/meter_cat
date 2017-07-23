@@ -4,12 +4,12 @@ require 'meter_cat/config'
 
 module MeterCat
 
-  def self.add( name, value = 1, created_on = Date.today )
-    MeterCat::Cache.instance.add( name, value, created_on )
+  def self.add(name, value = 1, created_on = Date.today)
+    MeterCat::Cache.instance.add(name, value, created_on)
   end
 
-  def self.set( name, value = 1, created_on = Date.today )
-    MeterCat::Meter.set( name, value, created_on )
+  def self.set(name, value = 1, created_on = Date.today)
+    MeterCat::Meter.set(name, value, created_on)
   end
 
   def self.config
@@ -22,11 +22,11 @@ module MeterCat
 
   def self.mail
     MeterCat::MeterMailer.report.deliver
-    MeterCat.add( :meter_cat_mail )
+    MeterCat.add(:meter_cat_mail)
   end
 
   def self.names
-    ( Meter.names + MeterCat::config.calculator.keys ).sort
+    (Meter.names + MeterCat.config.calculator.keys).sort
   end
 
 end

@@ -5,7 +5,7 @@ require 'csv'
 module MeterCat
   class Meter < ActiveRecord::Base
 
-    validates :name, :presence => true
+    validates :name, presence: true
 
     ###########################################################################
     # Constants
@@ -33,8 +33,8 @@ module MeterCat
 
     def add
       meter = nil
-      Meter.uncached { meter = Meter.find_by_name_and_created_on( name, created_on )}
-      meter ||= Meter.new( :name => name, :created_on => created_on )
+      Meter.uncached { meter = Meter.find_by_name_and_created_on(name, created_on) }
+      meter ||= Meter.new(name: name, created_on: created_on)
       meter.value += value
       return meter.save
     end
@@ -48,10 +48,11 @@ module MeterCat
 
       (1..MeterCat.config.retry_attempts).each do
         begin
-          break if success = add
+          success = add
+          break if success
         rescue ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique
         end
-        Kernel.sleep( MeterCat.config.retry_delay )
+        Kernel.sleep(MeterCat.config.retry_delay)
       end
 
       return success
@@ -60,7 +61,7 @@ module MeterCat
     # Determines if the meter is expired and should be flushed from memory to DB
 
     def expired?
-      return ( Time.now - created_at ) > MeterCat.config.expiration
+      return (Time.now - created_at) > MeterCat.config.expiration
     end
 
     ###########################################################################
@@ -69,23 +70,23 @@ module MeterCat
     # Returns all unique meter names sorted
 
     def self.names
-      Meter.all.uniq.pluck( :name ).sort.map { |name| name.to_sym }
+      Meter.all.uniq.pluck(:name).sort.map(&:to_sym)
     end
 
     # Generates a random sequence for a meter given the following args:
     # [ :name, :min, :max, :days ]
 
-    def self.random( args )
-      name = args[ :name ]
-      min = args[ :min ].to_i
-      max = args[ :max ].to_i
+    def self.random(args)
+      name = args[:name]
+      min = args[:min].to_i
+      max = args[:max].to_i
       stop = Date.today
-      start = Date.today - args[ :days ].to_i
+      start = Date.today - args[:days].to_i
 
-      (start .. stop).each do |date|
-        value = min + rand( max - min )
+      (start..stop).each do |date|
+        value = min + rand(max - min)
         begin
-          Meter.create( :name => name, :value => value, :created_on => date )
+          Meter.create(name: name, value: value, created_on: date)
         rescue
         end
       end
@@ -93,58 +94,57 @@ module MeterCat
 
     # Sets or creates a new record for the name and day
 
-    def self.set( name, value = 1, created_on = Date.today )
-      meter = Meter.find_by_name_and_created_on( name, created_on )
-      meter ||= Meter.new( :name => name, :created_on => created_on )
+    def self.set(name, value = 1, created_on = Date.today)
+      meter = Meter.find_by_name_and_created_on(name, created_on)
+      meter ||= Meter.new(name: name, created_on: created_on)
       meter.value = value
       return meter.save
     end
 
     # Returns a hash of names to dates to values
 
-    def self.to_h( range, names = nil )
+    def self.to_h(range, names = nil)
       meters = {}
 
       # Inject dependencies into the names array
 
       calculator = MeterCat.config.calculator
-      calculator.dependencies( names ) if names
+      calculator.dependencies(names) if names
 
       # Build conditions for the query
 
       conditions = {}
-      conditions[ :created_on ] = range if range
-      conditions[ :name ] = names if names
+      conditions[:created_on] = range if range
+      conditions[:name] = names if names
 
       # Retrieve the data
 
-      Meter.select( [ :id, :name, :created_on, :value ] ).where( conditions ).find_each do |meter|
+      Meter.select([:id, :name, :created_on, :value]).where(conditions).find_each do |meter|
         name = meter.name.to_sym
-        meters[ name ] ||= {}
-        meters[ name ][ meter.created_on ] = meter.value
+        meters[name] ||= {}
+        meters[name][meter.created_on] = meter.value
       end
 
       # Fill in calculated and missing values
 
-      calculator.calculate( meters, range, names )
-      names.each { |name| meters[ name ] ||= {} } if names
+      calculator.calculate(meters, range, names)
+      names.each { |name| meters[name] ||= {} } if names
 
       return meters
     end
 
     # Returns a CSV where rows represent days
 
-    def self.to_csv( range, names = nil  )
-      meters = to_h( range, names )
+    def self.to_csv(range, names = nil)
+      meters = to_h(range, names)
       keys = meters.keys.sort!
 
       CSV.generate do |csv|
-        csv << [ nil ] + keys
+        csv << [nil] + keys
         range.each do |date|
-          csv << [ date ] + keys.map { |key| meters[ key ][ date ] }
+          csv << [date] + keys.map { |key| meters[key][date] }
         end
       end
     end
-
   end
 end

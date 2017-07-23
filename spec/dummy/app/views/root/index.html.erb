@@ -1,5 +1,5 @@
-<h1><%= t( :title, :scope => :meter_cat ) %></h1>
-<%= meter_table( @meters, @range ) %>
+<h1><%= t(:title, :scope => :meter_cat) %></h1>
+<%= meter_table(@meters, @range) %>
 
 <%= status_title %>
-<%= status_table( StatusCat::Status.all ) %>
+<%= status_table(StatusCat::Status.all) %>
