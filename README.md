@@ -31,7 +31,7 @@ rather than run a bunch of count queries.
 3. Install and run migrations
 
         rake meter_cat:install:migrations
-        rake db:migrate
+        rake db:migrate db:test:prepare
 
 4. Generate some random data
 
