@@ -165,6 +165,14 @@ describe MeterCat::Meter do
       expected = Meter.all.uniq.pluck(:name).sort.map(&:to_sym)
       Meter.names.should eql(expected)
     end
+
+    it 'does not include dupes' do
+      Meter.delete_all
+      Meter.create(name: 'test', created_on: '2013-09-04', value: 727)
+      Meter.create(name: 'test', created_on: '2013-09-05', value: 728)
+      Meter.create(name: 'test', created_on: '2013-09-06', value: 729)
+      expect(Meter.names).to eql([:test])
+    end
   end
 
   #############################################################################
