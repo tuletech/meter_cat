@@ -25,3 +25,5 @@ Gemfile.lock
 
 passwords.yml
 /.ruby-version
+
+/meter_cat-*.gem

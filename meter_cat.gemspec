@@ -1,13 +1,13 @@
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require 'meter_cat/version'
+require 'system_cat/version'
 require 'date'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'meter_cat'
-  s.version     = MeterCat::VERSION
+  s.version     = SystemCat::Version.new.to_s
   s.date        = Date.today.to_s
   s.licenses    = ['MIT']
   s.authors     = ['Rich Humphrey']
